@@ -28,6 +28,9 @@ import Presentation from "layouts/pages/presentation";
 
 // Material Kit 2 React routes
 import routes from "routes";
+import ReserveRoom from "pages/ReserveRoom";
+import MyReservations from "pages/MyReservations";
+import CancelReservation from "pages/CancelReservation";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -58,6 +61,9 @@ export default function App() {
         {getRoutes(routes)}
         <Route path="/presentation" element={<Presentation />} />
         <Route path="*" element={<Navigate to="/presentation" />} />
+        <Route path="/reserve-room" element={<ReserveRoom />} />
+        <Route path="/my-reservations" element={<MyReservations />} />
+        <Route path="/cancel-reservation" element={<CancelReservation />} />
       </Routes>
     </ThemeProvider>
   );
