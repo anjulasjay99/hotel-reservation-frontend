@@ -67,11 +67,11 @@ function MyReservations() {
                 ...reservations,
                 {
                   hotel: "WonderLanka",
-                  room: "Room 1",
-                  noOfChildren: 0,
+                  room: "Room 2",
+                  noOfChildren: 1,
                   noOfAdults: 2,
-                  checkInDate: "7/5/2022",
-                  checkOutDate: "12/5/2022",
+                  checkInDate: "20/5/2022",
+                  checkOutDate: "23/5/2022",
                 },
               ])
             }
@@ -125,9 +125,7 @@ function MyReservations() {
                     variant="gradient"
                     color="primary"
                     fullWidth
-                    onClick={() =>
-                      navigate({ pathname: "/cancel-reservation", state: { reservation: rsv } })
-                    }
+                    onClick={() => navigate("/cancel-reservation", { state: { reservation: rsv } })}
                   >
                     Cancel Reservation
                   </MKButton>
