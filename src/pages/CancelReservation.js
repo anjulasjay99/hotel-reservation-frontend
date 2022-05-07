@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -16,8 +18,11 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+import { useLocation } from "react-router-dom";
 
 function CancelReservation() {
+  const location = useLocation();
+  const [reason, setreason] = useState("");
   const onSubmit = (event) => {
     event.preventDefault();
   };
@@ -65,7 +70,7 @@ function CancelReservation() {
 
                 <Grid item xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    WonderLanka, Room 1
+                    {`${location.state.reservation.hotel} , ${location.state.reservation.room}`}
                   </MKTypography>
                 </Grid>
               </Grid>
@@ -83,7 +88,10 @@ function CancelReservation() {
 
                 <Grid item xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    2 guest(s)
+                    <i>{`${
+                      location.state.reservation.noOfAdults +
+                      location.state.reservation.noOfChildren
+                    } guest(s)`}</i>
                   </MKTypography>
                 </Grid>
               </Grid>
@@ -101,7 +109,7 @@ function CancelReservation() {
 
                 <Grid item xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    7/5/2022
+                    {location.state.reservation.checkInDate}
                   </MKTypography>
                 </Grid>
               </Grid>
@@ -119,7 +127,7 @@ function CancelReservation() {
 
                 <Grid item xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    12/5/2022
+                    {location.state.reservation.checkOutDate}
                   </MKTypography>
                 </Grid>
               </Grid>
@@ -150,6 +158,8 @@ function CancelReservation() {
                 label="Reason for cancellation"
                 placeholder="Describe your problem in at least 250 characters"
                 InputLabelProps={{ shrink: true }}
+                value={reason}
+                onChange={(e) => setreason(e.target.value)}
                 multiline
                 fullWidth
                 rows={8}
