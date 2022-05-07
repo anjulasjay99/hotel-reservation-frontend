@@ -47,7 +47,7 @@ import AboutUs from "layouts/pages/landing-pages/about-us";
 import ContactUs from "layouts/pages/landing-pages/contact-us";
 import Author from "layouts/pages/landing-pages/author";
 import SignIn from "layouts/pages/authentication/sign-in";
-
+import AddReservationHotel from "pages/AddReservation";
 // Sections
 import PageHeaders from "layouts/sections/page-sections/page-headers";
 import Features from "layouts/sections/page-sections/featuers";
@@ -92,6 +92,11 @@ const routes = [
             name: "author",
             route: "/pages/landing-pages/author",
             component: <Author />,
+          },
+          {
+            name: "add reservation",
+            route:"/hotel-add-reservation",
+            component: <AddReservationHotel />,
           },
         ],
       },
