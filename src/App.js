@@ -36,6 +36,7 @@ import Payment from "pages/Payment";
 import ViewReservation from "pages/ViewReservationsHotel";
 import AddReservationHotel from "pages/AddReservation";
 import MapContainer from "pages/MapContainer";
+import UpdateReservation from "pages/updateReservation";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -73,6 +74,8 @@ export default function App() {
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
         <Route path="/view-location" element={<MapContainer/>} />
+        <Route path="/update" element={<UpdateReservation/>} />
+
       </Routes>
     </ThemeProvider>
   );
