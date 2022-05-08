@@ -178,7 +178,7 @@ function CancelReservation() {
                 color="primary"
                 onClick={(event) => onSubmit(event)}
               >
-                Confirm
+                Confirm Cancellation
               </MKButton>
             </Grid>
           </div>

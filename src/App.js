@@ -33,7 +33,7 @@ import MyReservations from "pages/MyReservations";
 import CancelReservation from "pages/CancelReservation";
 import Payment from "pages/Payment";
 import ViewReservation from "pages/ViewReservationsHotel";
-
+import AddReservationHotel from "pages/AddReservation";
 
 export default function App() {
   const { pathname } = useLocation();
