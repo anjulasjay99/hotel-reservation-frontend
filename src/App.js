@@ -34,6 +34,7 @@ import CancelReservation from "pages/CancelReservation";
 import Payment from "pages/Payment";
 import ViewReservation from "pages/ViewReservationsHotel";
 import AddReservationHotel from "pages/AddReservation";
+import RoomsView from "pages/Rooms";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -70,6 +71,7 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
+        <Route path="/view-rooms" element={<RoomsView />} />
       </Routes>
     </ThemeProvider>
   );
