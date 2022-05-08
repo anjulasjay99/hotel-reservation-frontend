@@ -27,6 +27,7 @@ import theme from "assets/theme";
 import Presentation from "layouts/pages/presentation";
 
 // Material Kit 2 React routes
+
 import routes from "routes";
 import ReserveRoom from "pages/ReserveRoom";
 import MyReservations from "pages/MyReservations";
@@ -34,6 +35,7 @@ import CancelReservation from "pages/CancelReservation";
 import Payment from "pages/Payment";
 import ViewReservation from "pages/ViewReservationsHotel";
 import AddReservationHotel from "pages/AddReservation";
+import MapContainer from "pages/MapContainer";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -70,6 +72,7 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
+        <Route path="/view-location" element={<MapContainer />} />
       </Routes>
     </ThemeProvider>
   );
