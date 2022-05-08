@@ -11,8 +11,8 @@ export default function Map() {
 
   if (!isLoaded) return <div>Loading...</div>;
  
-  return <MapWithAMarker containerElement={<div style={{ height: `600px` }} />}
-  mapElement={<div style={{ height: `100%`,width: `60%` }} 
+  return <MapWithAMarker containerElement={<div style={{ height: `600px`,wdith: `200px` }} />}
+  mapElement={<div style={{ height: `100%`,width: `100%` }} 
   loadingElement={<div style={{ height: `100%` }} />}
   />} />;
 }
