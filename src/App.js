@@ -31,6 +31,7 @@ import routes from "routes";
 import ReserveRoom from "pages/ReserveRoom";
 import MyReservations from "pages/MyReservations";
 import CancelReservation from "pages/CancelReservation";
+import Payment from "pages/Payment";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="/reserve-room" element={<ReserveRoom />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/cancel-reservation" element={<CancelReservation />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </ThemeProvider>
   );

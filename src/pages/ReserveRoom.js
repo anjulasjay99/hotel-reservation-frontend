@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -21,6 +22,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/illustrations/illustration-reset.jpg";
 
 function ReserveRoom() {
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
@@ -37,17 +39,20 @@ function ReserveRoom() {
   const onSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log({
+    const reservation = {
       fname,
       lname,
       email,
       telNo,
+      hotel: "WonderLanka",
+      room: "Room1",
       country,
       checkInDate,
       checkOutDate,
       noOfChildren,
       noOfAdults,
-    });
+    };
+    navigate("/payment", { state: { reservation } });
   };
 
   const style = {
