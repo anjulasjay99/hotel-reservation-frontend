@@ -72,7 +72,7 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
-        <Route path="/view-location" element={<MapContainer />} />
+        <Route path="/view-location" element={<MapContainer/>} />
       </Routes>
     </ThemeProvider>
   );
