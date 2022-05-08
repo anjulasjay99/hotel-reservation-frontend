@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // @mui material components
@@ -33,6 +34,7 @@ function ReserveRoom() {
   const [checkOutDate, setcheckOutDate] = useState("");
   const [noOfChildren, setnoOfChildren] = useState(0);
   const [noOfAdults, setnoOfAdults] = useState(0);
+  const [first, setfirst] = useState("");
 
   const handleChecked = () => setChecked(!checked);
 
