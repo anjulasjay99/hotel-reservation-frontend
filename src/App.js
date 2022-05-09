@@ -35,9 +35,12 @@ import CancelReservation from "pages/CancelReservation";
 import Payment from "pages/Payment";
 import ViewReservation from "pages/ViewReservationsHotel";
 import AddReservationHotel from "pages/AddReservation";
+import PaymentSuccess from "pages/PaymentSuccess";
+import PaymentUnsuccessful from "pages/PaymentUnsuccessful";
 import RoomsView from "pages/Rooms";
 import MapContainer from "pages/MapContainer";
 import UpdateReservation from "pages/updateReservation";
+
 
 
 export default function App() {
@@ -75,10 +78,11 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-unsuccessful" element={<PaymentUnsuccessful />} />
         <Route path="/view-rooms" element={<RoomsView />} />
         <Route path="/view-location" element={<MapContainer/>} />
         <Route path="/update" element={<UpdateReservation/>} />
-
       </Routes>
     </ThemeProvider>
   );

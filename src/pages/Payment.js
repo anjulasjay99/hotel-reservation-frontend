@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from "react";
 
 // @mui material components
@@ -30,7 +31,27 @@ function Payment() {
     display: "flex",
     flexDirection: "row",
   };
+  const proceed = (event) => {
+    event.preventDefault();
 
+    fetch("http://localhost:8070/payments", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        roomId: location.state.reservation.roomId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        window.location.replace(response.url);
+      })
+      .catch((err) => {
+        alert("Error!");
+        console.log(err);
+      });
+  };
   return (
     <>
       <DefaultNavbar
@@ -165,7 +186,7 @@ function Payment() {
                   type="submit"
                   variant="gradient"
                   color="primary"
-                  onClick={(event) => onSubmit(event)}
+                  onClick={(event) => proceed(event)}
                 >
                   Confirm & Proceed
                 </MKButton>
