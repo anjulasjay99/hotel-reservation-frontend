@@ -12,7 +12,7 @@ function RoomsView() {
   const navigate = useNavigate();
 
   function ReserveClick(room) {
-    navigate("/reserve-room", { state: room });
+    navigate("/reserve-room", { state: { room } });
   }
   const rooms = [
     {

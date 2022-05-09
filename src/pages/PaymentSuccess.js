@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Material Kit 2 React components
@@ -8,7 +8,7 @@ import MKBox from "components/MKBox";
 
 import bgImage from "assets/images/success.png";
 
-function PaymentSuccess() {
+function PaymentSuccess({ rsvInfo }) {
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -16,6 +16,32 @@ function PaymentSuccess() {
     alignItems: "center",
     height: "100vh",
   };
+
+  const saveReservation = async (reservation) => {
+    await fetch(`http://localhost:8070/reservation/save`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(reservation),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("Added successfully!");
+        localStorage.setItem("reservationDetails", "");
+      })
+      .catch((err) => {
+        console.log("Error!");
+      });
+  };
+
+  useEffect(() => {
+    const reservation = localStorage.getItem("reservationDetails");
+    if (reservation !== "" || reservation !== undefined) {
+      saveReservation(JSON.parse(reservation));
+    }
+  }, []);
+
   return (
     <div style={style}>
       <MKBox
@@ -28,6 +54,7 @@ function PaymentSuccess() {
         sx={{ backgroundImage: `url(${bgImage})`, backgroundSize: "contain" }}
       />
       <h1>Payment Successful!</h1>
+      <h6>{rsvInfo.totalPayment}</h6>
       <Link to="/my-reservations">See your reservations</Link>
     </div>
   );

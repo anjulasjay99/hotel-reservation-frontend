@@ -12,8 +12,8 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
-import { useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -41,10 +41,14 @@ import RoomsView from "pages/Rooms";
 import MapContainer from "pages/MapContainer";
 import UpdateReservation from "pages/updateReservation";
 
-
-
 export default function App() {
   const { pathname } = useLocation();
+  const [rsvInfo, setrsvInfo] = useState({});
+
+  const setRsvInfo = (rsv) => {
+    setrsvInfo(rsv);
+    console.log(rsvInfo);
+  };
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
@@ -75,14 +79,14 @@ export default function App() {
         <Route path="/reserve-room" element={<ReserveRoom />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/cancel-reservation" element={<CancelReservation />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment" element={<Payment setRsvInfo={setRsvInfo} />} />
         <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
         <Route path="/view-reservation-hotel" element={<ViewReservation />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-success" element={<PaymentSuccess rsvInfo={rsvInfo} />} />
         <Route path="/payment-unsuccessful" element={<PaymentUnsuccessful />} />
         <Route path="/view-rooms" element={<RoomsView />} />
-        <Route path="/view-location" element={<MapContainer/>} />
-        <Route path="/update" element={<UpdateReservation/>} />
+        <Route path="/view-location" element={<MapContainer />} />
+        <Route path="/update" element={<UpdateReservation />} />
       </Routes>
     </ThemeProvider>
   );
