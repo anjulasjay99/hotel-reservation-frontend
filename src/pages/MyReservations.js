@@ -22,7 +22,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/bg-presentation.jpg";
+import bgImage from "assets/images/header.jpg";
 
 function MyReservations() {
   const navigate = useNavigate();
@@ -72,6 +72,7 @@ function MyReservations() {
         sx={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
           backgroundPosition: "top",
           display: "grid",
           placeItems: "center",

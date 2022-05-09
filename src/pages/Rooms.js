@@ -23,7 +23,7 @@ function RoomsView() {
       image: room1,
       description:
         "Our Deluxe king size room has a seating area, ample storage, digital safe and mini fridge. This room can also be configured with an extra roll-away bed for families of 3.",
-      hotelName: "Ponna Shehan Resorts",
+      hotelName: "Rivers Edge Nature Resorts",
     },
     {
       id: "2",
@@ -33,7 +33,7 @@ function RoomsView() {
       image: room2,
       description:
         "Our king size sleigh bedded also provides views over landscaped gardens. It has ample storage, a seating area, digital safe and mini fridge.",
-      hotelName: "Ponna Shehan Resorts",
+      hotelName: "Rivers Edge Nature Resorts",
     },
     {
       id: "3",
@@ -43,7 +43,7 @@ function RoomsView() {
       image: room3,
       description:
         "As our smallest budget rooms, the Compact bedrooms are suited for single occupancy or short-stay double occupancy as they have limited space and storage.",
-      hotelName: "Ponna Shehan Resorts",
+      hotelName: "Rivers Edge Nature Resorts",
     },
     {
       id: "4",
@@ -53,7 +53,7 @@ function RoomsView() {
       image: room4,
       description:
         "Our Deluxe Twin/Large Double also provides views over landscaped gardens. It has a seating area, digital safe and mini fridge. This room can be configured with either 2 single beds or zip and linked to provide a large double bed.",
-      hotelName: "Ponna Shehan Resorts",
+      hotelName: "Rivers Edge Nature Resorts",
     },
     {
       id: "5",
@@ -63,7 +63,7 @@ function RoomsView() {
       image: room5,
       description:
         "Our king size four poster provides views over landscaped gardens. It has a seating area, ample storage, digital safe and mini fridge.",
-      hotelName: "Ponna Shehan Resorts",
+      hotelName: "Rivers Edge Nature Resorts",
     },
   ];
 
