@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 
@@ -18,13 +21,33 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function CancelReservation() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [reason, setreason] = useState("");
+
   const onSubmit = (event) => {
     event.preventDefault();
+    if (confirm("Are you sure you want to cancel your reservation?")) {
+      fetch(`http://localhost:8070/reservation/delete/${location.state.reservation._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("Success!");
+          console.log(res);
+          navigate("/my-reservations");
+        })
+        .catch((err) => {
+          alert("Error!");
+          console.log(err);
+        });
+    }
   };
 
   const style = {
@@ -145,7 +168,7 @@ function CancelReservation() {
 
                 <Grid item xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    USD 14.40
+                    LKR 5000.00
                   </MKTypography>
                 </Grid>
               </Grid>

@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -18,10 +19,11 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function Payment() {
+function Payment({ setRsvInfo }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -31,8 +33,14 @@ function Payment() {
     display: "flex",
     flexDirection: "row",
   };
+
+  const updateState = (reservation) => {
+    setRsvInfo(reservation);
+  };
+
   const proceed = (event) => {
     event.preventDefault();
+    localStorage.setItem("reservationDetails", JSON.stringify(location.state.reservation));
 
     fetch("http://localhost:8070/payments", {
       method: "POST",
@@ -40,7 +48,9 @@ function Payment() {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        roomId: location.state.reservation.roomId,
+        roomId: parseInt(location.state.reservation.roomId, 10),
+        noOfAdults: parseInt(location.state.reservation.noOfAdults, 10),
+        noOfChildren: parseInt(location.state.reservation.noOfChildren, 10),
       }),
     })
       .then((response) => response.json())
@@ -97,7 +107,7 @@ function Payment() {
 
                 <Grid item justifyContent="center" display="flex" xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    {`${location.state.reservation.hotel} , ${location.state.reservation.room}`}
+                    {`${location.state.reservation.room} , ${location.state.reservation.hotel}`}
                   </MKTypography>
                 </Grid>
               </Grid>
@@ -117,8 +127,8 @@ function Payment() {
                 <Grid item justifyContent="center" display="flex" xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
                     <i>{`${
-                      location.state.reservation.noOfAdults +
-                      location.state.reservation.noOfChildren
+                      parseInt(location.state.reservation.noOfAdults, 10) +
+                      parseInt(location.state.reservation.noOfChildren, 10)
                     } guest(s)`}</i>
                   </MKTypography>
                 </Grid>
@@ -176,7 +186,7 @@ function Payment() {
 
                 <Grid item justifyContent="center" display="flex" xs={12} sm={6}>
                   <MKTypography variant="body2" color="text">
-                    USD 14.40
+                    {`LKR ${location.state.reservation.totalPayment}`}
                   </MKTypography>
                 </Grid>
               </Grid>
