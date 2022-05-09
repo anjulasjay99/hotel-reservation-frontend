@@ -40,21 +40,37 @@ function ReserveRoom() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    const reservation = {
-      fname,
-      lname,
-      email,
-      telNo,
-      hotel: "WonderLanka",
-      room: "Room1",
-      country,
-      checkInDate,
-      checkOutDate,
-      noOfChildren,
-      noOfAdults,
-    };
-    navigate("/payment", { state: { reservation } });
+
+    if (
+      fname !== "" &&
+      lname !== "" &&
+      email !== "" &&
+      telNo !== "" &&
+      country !== "" &&
+      checkInDate !== "" &&
+      checkOutDate !== "" &&
+      lname !== "" &&
+      checked === true
+    ) {
+      const reservation = {
+        fname,
+        lname,
+        email,
+        telNo,
+        hotel: "WonderLanka",
+        room: "Room1",
+        roomId: 1,
+        country,
+        checkInDate,
+        checkOutDate,
+        noOfChildren,
+        noOfAdults,
+      };
+      navigate("/payment", { state: { reservation } });
+    } else {
+      // eslint-disable-next-line no-alert
+      alert("Please fill all the fields");
+    }
   };
 
   const style = {
@@ -215,6 +231,7 @@ function ReserveRoom() {
                         fullWidth
                         value={fname}
                         onChange={(e) => setfname(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -224,6 +241,7 @@ function ReserveRoom() {
                         fullWidth
                         value={lname}
                         onChange={(e) => setlname(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -234,6 +252,7 @@ function ReserveRoom() {
                         fullWidth
                         value={email}
                         onChange={(e) => setemail(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -244,6 +263,7 @@ function ReserveRoom() {
                         fullWidth
                         value={telNo}
                         onChange={(e) => settelNo(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -254,6 +274,7 @@ function ReserveRoom() {
                         fullWidth
                         value={country}
                         onChange={(e) => setcountry(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -265,6 +286,7 @@ function ReserveRoom() {
                         value={checkInDate}
                         InputLabelProps={{ shrink: true }}
                         onChange={(e) => setcheckInDate(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -276,6 +298,7 @@ function ReserveRoom() {
                         value={checkOutDate}
                         InputLabelProps={{ shrink: true }}
                         onChange={(e) => setcheckOutDate(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -286,6 +309,7 @@ function ReserveRoom() {
                         fullWidth
                         value={noOfChildren}
                         onChange={(e) => setnoOfChildren(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -296,6 +320,7 @@ function ReserveRoom() {
                         fullWidth
                         value={noOfAdults}
                         onChange={(e) => setnoOfAdults(e.target.value)}
+                        required
                       />
                     </Grid>
                     <Grid item xs={12} alignItems="center" ml={-1}>
