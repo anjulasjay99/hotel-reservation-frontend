@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+/* eslint-disable spaced-comment */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // @mui material components
@@ -19,7 +22,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/bg-presentation.jpg";
+import bgImage from "assets/images/header.jpg";
 
 function MyReservations() {
   const navigate = useNavigate();
@@ -34,6 +37,23 @@ function MyReservations() {
       checkOutDate: "12/5/2022",
     },
   ]);
+
+  const getReservations = async () => {
+    await fetch("http://localhost:8070/reservation/getAll")
+      .then((res) => res.json())
+      .then((res) => {
+        setreservations(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error fecthing data!");
+      });
+  };
+
+  useEffect(() => {
+    getReservations();
+  }, []);
+
   return (
     <>
       <DefaultNavbar
@@ -52,6 +72,7 @@ function MyReservations() {
         sx={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
           backgroundPosition: "top",
           display: "grid",
           placeItems: "center",
@@ -59,23 +80,7 @@ function MyReservations() {
       />
       <Container>
         <Grid py={2} mx={3}>
-          <MKTypography
-            variant="h3"
-            ml={2}
-            onClick={() =>
-              setreservations([
-                ...reservations,
-                {
-                  hotel: "WonderLanka",
-                  room: "Room 2",
-                  noOfChildren: 1,
-                  noOfAdults: 2,
-                  checkInDate: "20/5/2022",
-                  checkOutDate: "23/5/2022",
-                },
-              ])
-            }
-          >
+          <MKTypography variant="h3" ml={2}>
             My Reservations
           </MKTypography>
         </Grid>
@@ -96,7 +101,7 @@ function MyReservations() {
                 <Grid>
                   <Grid>
                     <MKTypography variant="body1" color="text" ml={2} mr={5} mt={2}>
-                      {`${rsv.hotel} , ${rsv.room}`}
+                      {`${rsv.room} , ${rsv.hotel}`}
                     </MKTypography>
                   </Grid>
                   <Grid>
