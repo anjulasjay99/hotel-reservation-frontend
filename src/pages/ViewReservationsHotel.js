@@ -1,10 +1,23 @@
-import React from "react";
+import { React , useState, useEffect } from "react";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
+import axios from "axios";
 
 function ViewReservation() {
+
+  const [reservations , setReservations] = useState([]);
+
+  useEffect(() =>{
+    axios.get("http://localhost:8070/reservation/getAll").then((res)=>{
+      console.log(res);
+      setReservations(res.data);
+    }).catch((err) =>{
+      alert("Error");
+      console.log(err);
+    })
+  })
   const number = 1;
   return (
     <MKBox component="section" py={12}>
@@ -16,7 +29,6 @@ function ViewReservation() {
           <table className="table table-striped">
             <thead>
               <th scope="col">#</th>
-              <th scope="col">Reservation ID</th>
               <th scope="col">Reservation Date</th>
               <th scope="col">First Name</th>
               <th scope="col">Last Name</th>
@@ -32,30 +44,32 @@ function ViewReservation() {
               <th scope="col">Actions</th>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">{number + 1}</th>
-                <td>ID</td>
-                <td>Date</td>
-                <td>FName</td>
-                <td>LName</td>
-                <td>Mail</td>
-                <td>Tel</td>
-                <td>Country</td>
-                <td>CINDATE</td>
-                <td>COUTDATE</td>
-                <td>ROOM</td>
-                <td>NC</td>
-                <td>NA</td>
-                <td>Payment</td>
-                <td>
-                  <MKButton variant="gradient" color="info">
-                    Edit
-                  </MKButton>
-                  <MKButton variant="gradient" color="error">
-                    Delete
-                  </MKButton>
-                </td>
-              </tr>
+              {reservations.map((reservation) =>(
+                              <tr>
+                              <th scope="row">{number + 1}</th>
+                              <td>Date</td>
+                              <td>{reservation.firstName}</td>
+                              <td>{reservation.lastName}</td>
+                              <td>{reservation.email}</td>
+                              <td>{reservation.telNo}</td>
+                              <td>{reservation.country}</td>
+                              <td>{reservation.checkInDate}</td>
+                              <td>{reservation.checkOutDate}</td>
+                              <td>{reservation.room}</td>
+                              <td>{reservation.noOfChildren}</td>
+                              <td>{reservation.noOfAdults}</td>
+                              <td>{reservation.totalPayment}</td>
+                              <td>
+                                <MKButton variant="gradient" color="info">
+                                  Edit
+                                </MKButton>
+                                <MKButton variant="gradient" color="error">
+                                  Delete
+                                </MKButton>
+                              </td>
+                            </tr>
+              ))}
+
             </tbody>
           </table>
         </div>
