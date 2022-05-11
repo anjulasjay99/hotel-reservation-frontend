@@ -1,9 +1,12 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_bar"] }] */
+/* eslint-disable no-unused-vars */
 import { React , useState, useEffect } from "react";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 function ViewReservation() {
 
@@ -17,8 +20,27 @@ function ViewReservation() {
       alert("Error");
       console.log(err);
     })
-  })
+  },[])
   const number = 1;
+  const navigate = useNavigate();
+
+  const getData = () => {
+    axios.get(`http://localhost:8070/reservation/getAll`)
+        .then((res) => {
+          setReservations(res.data);
+    })
+  }
+  
+  // delete a reservation
+  const deleteReservation = (reservation)=>{
+    console.log(reservation)
+    axios.delete(`http://localhost:8070/reservation/delete/${reservation._id}`).then((data)=>{
+      alert("Reservation deleted");
+      getData();
+    })
+  }
+
+
   return (
     <MKBox component="section" py={12}>
       <div style={{ margin: "20px" }}>
@@ -60,10 +82,18 @@ function ViewReservation() {
                               <td>{reservation.noOfAdults}</td>
                               <td>{reservation.totalPayment}</td>
                               <td>
-                                <MKButton variant="gradient" color="info">
-                                  Edit
+                                <MKButton variant="gradient" color="info"
+                                 onClick = {()=>{
+                                   console.log(reservation._id)
+                                   navigate(`/update-reservation/${reservation._id}`);
+                                 }}>
+                                Edit
                                 </MKButton>
-                                <MKButton variant="gradient" color="error">
+                                
+                                <MKButton variant="gradient" color="error"
+                                onClick = {()=>{
+                                  deleteReservation(reservation)
+                                }}>
                                   Delete
                                 </MKButton>
                               </td>
