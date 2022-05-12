@@ -40,7 +40,9 @@ import PaymentUnsuccessful from "pages/PaymentUnsuccessful";
 import RoomsView from "pages/Rooms";
 import MapContainer from "pages/MapContainer";
 import UpdateReservation from "pages/updateReservation";
+import Login from "pages/login";
 import Registration from "pages/Registration";
+
 
 export default function App() {
   const { pathname } = useLocation();
@@ -87,8 +89,11 @@ export default function App() {
         <Route path="/payment-unsuccessful" element={<PaymentUnsuccessful />} />
         <Route path="/view-rooms" element={<RoomsView />} />
         <Route path="/view-location" element={<MapContainer />} />
+        <Route path="/update" element={<UpdateReservation />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/update-reservation/:id" element={<UpdateReservation />} />
         <Route path="/register" element={<Registration />} />
+
       </Routes>
     </ThemeProvider>
   );

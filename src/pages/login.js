@@ -1,33 +1,17 @@
-/**
-=========================================================
-* Material Kit 2 React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+/* eslint-disable prefer-const */
+/* eslint-disable no-else-return */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import axios from "axios";
+import { ReactSession } from "react-client-session";
+import { useNavigate , Link } from "react-router-dom";
 
-// react-router-dom components
-import { Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
 
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -43,12 +27,41 @@ import SimpleFooter from "examples/Footers/SimpleFooter";
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/hoteLogin.jpg"
 
-function SignInBasic() {
+function Login() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [username , setUsername] = useState("");
+  const [password , setPassword] = useState("");
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const navigate = useNavigate();
+
+  function onClickSignIn(e) {
+    
+    e.preventDefault();
+    axios.get(`http://localhost:8070/login/check/${username}`).then((res) =>{
+      if (res.data === true){
+        axios.get(`http://localhost:8070/login/get/${username}`).then((r) =>{
+          if(password !== r.data.Password){
+            alert("Check Password!");
+          }
+          else{
+            ReactSession.set("loginData" , res.data);
+            navigate("/reserve-room");
+            // Redirect to pages based on role.
+          }
+
+        })
+      }else{
+        alert("Check username!");
+      }
+    }).catch((er) =>{
+      console.log(er);
+    })
+
+  }
 
   return (
     <>
@@ -85,7 +98,7 @@ function SignInBasic() {
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
           <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
             <Card>
-              <MKBox
+            <MKBox
                 variant="gradient"
                 bgColor="info"
                 borderRadius="sm"
@@ -99,15 +112,18 @@ function SignInBasic() {
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
                   Sign in
                 </MKTypography>
-          
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth />
+                    <MKInput type="text" label="Username" fullWidth value = {username} onChange = {(e) =>{
+                      setUsername(e.target.value);
+                    }}/>
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput type="password" label="Password" fullWidth value = {password} onChange = {(e) =>{
+                      setPassword(e.target.value);
+                    }} />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -122,7 +138,9 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
+                    <MKButton variant="gradient" color="info" fullWidth onClick = {(event) =>{
+                      onClickSignIn(event);
+                    }}>
                       sign in
                     </MKButton>
                   </MKBox>
@@ -154,4 +172,4 @@ function SignInBasic() {
   );
 }
 
-export default SignInBasic;
+export default Login;
