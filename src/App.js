@@ -42,7 +42,9 @@ import MapContainer from "pages/MapContainer";
 import UpdateReservation from "pages/updateReservation";
 import Login from "pages/login";
 import Registration from "pages/Registration";
-
+import AdminHome from "pages/AdminHome";
+import AddEmployee from "pages/AddEmployee";
+import ViewEmployees from "pages/ViewEmployees";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -93,7 +95,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/update-reservation/:id" element={<UpdateReservation />} />
         <Route path="/register" element={<Registration />} />
-
+        <Route path="/admin-home" element={<AdminHome />} />
+        <Route path="add-employee" element={<AddEmployee />} />
+        <Route path="/view-employees" element={<ViewEmployees />} />
       </Routes>
     </ThemeProvider>
   );
