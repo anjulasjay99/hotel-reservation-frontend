@@ -38,28 +38,79 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const userType = 1;
   function onClickSignIn(e) {
     
     e.preventDefault();
-    axios.get(`http://localhost:8070/login/check/${username}`).then((res) =>{
-      if (res.data === true){
-        axios.get(`http://localhost:8070/login/get/${username}`).then((r) =>{
-          if(password !== r.data.Password){
-            alert("Check Password!");
-          }
-          else{
-            ReactSession.set("loginData" , res.data);
-            navigate("/reserve-room");
-            // Redirect to pages based on role.
-          }
+    if (userType === 1){
+      axios.get(`http://localhost:8070/login/check/${username}`).then((res) =>{
+        if (res.data === true){
+          axios.get(`http://localhost:8070/login/get/${username}`).then((r) =>{
+            if(password !== r.data.Password){
+              alert("Check Password!");
+            }
+            else{
+              ReactSession.set("loginData" , res.data);
+              ReactSession.set("userType" , userType);
+              navigate("/reserve-room");
+              // Redirect to pages based on role.
+            }
+  
+          })
+        }else{
+          alert("Check username!");
+        }
+      }).catch((er) =>{
+        console.log(er);
+      })
+    }
 
-        })
-      }else{
-        alert("Check username!");
-      }
-    }).catch((er) =>{
-      console.log(er);
-    })
+    else if (userType === 2){
+      axios.get(`http://localhost:8070/login/checkEmp/${username}`).then((res) =>{
+        if (res.data === true){
+          axios.get(`http://localhost:8070/login/getAdmin`).then((r) =>{
+            if(password !== r.data.nic){
+              alert("Check Password!");
+            }
+            else{
+              ReactSession.set("loginData" , res.data);
+              ReactSession.set("userType" , userType);
+              navigate("/reserve-room");
+              // Redirect to pages based on role.
+            }
+  
+          })
+        }else{
+          alert("Check username!");
+        }
+      }).catch((er) =>{
+        console.log(er);
+      })
+    }
+
+    else{
+      axios.get(`http://localhost:8070/login/getAdmin/${username}`).then((res) =>{
+        if (res.data === true){
+          axios.get(`http://localhost:8070/login/getEmp/${username}`).then((r) =>{
+            if(password !== r.data.password){
+              alert("Check Password!");
+            }
+            else{
+              ReactSession.set("loginData" , res.data);
+              ReactSession.set("userType" , userType);
+              navigate("/reserve-room");
+              // Redirect to pages based on role.
+            }
+  
+          })
+        }else{
+          alert("Check username!");
+        }
+      }).catch((er) =>{
+        console.log(er);
+      })
+    }
+
 
   }
 
