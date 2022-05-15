@@ -34,21 +34,12 @@ function MapContainer(){
           <Grid item xs={12} sm={9}>
           <Map/>
           </Grid>
-        </Grid>
-        
+        </Grid>  
       </Container>
     </MKBox>
-    
     </div>
-
   )
 }
 
 export default MapContainer
 
-/* <center>
-<br/>
-<h1>Hotel Location</h1>
-<br/><br/>
-<Map/>
-</center> */

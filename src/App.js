@@ -45,6 +45,7 @@ import Registration from "pages/Registration";
 import AdminHome from "pages/AdminHome";
 import AddEmployee from "pages/AddEmployee";
 import ViewEmployees from "pages/ViewEmployees";
+import EmployeeHome from "pages/EmployeeHome";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -98,6 +99,7 @@ export default function App() {
         <Route path="/admin-home" element={<AdminHome />} />
         <Route path="add-employee" element={<AddEmployee />} />
         <Route path="/view-employees" element={<ViewEmployees />} />
+        <Route path="/employee-home" element={<EmployeeHome/>} />
       </Routes>
     </ThemeProvider>
   );
