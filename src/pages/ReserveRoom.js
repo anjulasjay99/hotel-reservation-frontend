@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable prefer-const */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-vars */
@@ -29,6 +30,8 @@ import room3 from "./images/room3.jpg";
 import room4 from "./images/room4.jpg";
 import room5 from "./images/room5.jpg";
 
+import axios from "axios";
+
 function ReserveRoom() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,16 +55,26 @@ function ReserveRoom() {
     description: "",
     hotelName: "",
   });
+  const [totalPayment, settotalPayment] = useState(0);
 
   const handleChecked = () => setChecked(!checked);
 
+  const getTotalPayment = async () => {
+    await axios
+      .post("http://localhost:8070/payments/calculate", {
+        roomId: parseInt(location.state.room.id, 10),
+        nChildren: noOfChildren,
+        nAdults: noOfAdults,
+      })
+      .then((res) => {
+        settotalPayment(res.data);
+      })
+      .catch((err) => alert(err));
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
-
-    let totalPayment = 0;
-    const priceA = parseInt(location.state.room.priceA.split(",").join(""), 10);
-    const priceC = parseInt(location.state.room.priceC.split(",").join(""), 10);
-
+    getTotalPayment();
     if (
       fname !== "" &&
       lname !== "" &&
@@ -73,7 +86,6 @@ function ReserveRoom() {
       noOfAdults > 0 &&
       checked === true
     ) {
-      totalPayment = priceA * noOfAdults + priceC * noOfChildren;
       const reservation = {
         firstName: fname,
         lastName: lname,
