@@ -17,7 +17,6 @@ export default function Map() {
   />} />;
 }
 
-
 const MapWithAMarker = withGoogleMap(props =>
     <div>
       <GoogleMap
