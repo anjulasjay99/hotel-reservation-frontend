@@ -27,9 +27,9 @@ function AddReservationHotel() {
   const [noOfChildren , setChidren] = useState(0);
   const [noOfAdults , setAdults] = useState(0);
   const [totalPayment , setTotalPayment] = useState(0);
-  const [priceA , setPriceA] = useState("");
-  const [priceC , setPriceC] = useState(""); 
-  
+  // const [priceA , setPriceA] = useState("");
+  // const [priceC , setPriceC] = useState(""); 
+  const [rid , setId] = useState(1);
   const hotel = "Rivers Edge Nature Resorts";
 
   const rooms = [
@@ -67,26 +67,31 @@ function AddReservationHotel() {
 
 
   function CalculatePayment (SelectedRoom){
-    console.log("Payment");
+
     console.log(SelectedRoom);
-      rooms.forEach((r) =>{
-        
-        if(r.title === SelectedRoom){
-          setPriceA(r.priceA);
-          setPriceC(r.priceC);
-          console.log(r.title);
-          console.log(r.priceA);
-          console.log(r.priceC);
-        }
-        
-          
-      });
-      console.log(noOfAdults );
-      console.log(noOfChildren );
-      let tot = priceA * noOfAdults + priceC * noOfChildren;
-      console.log(tot);
-      setTotalPayment(tot);
-      console.log(totalPayment);
+    rooms.forEach((r) =>{
+      if(r.title === SelectedRoom){
+        setId(r.id);
+      }
+      // else{
+      //   alert("Room not found!");
+      // }
+      console.log(rid);
+    })
+    const booking = {
+      roomId : parseInt(rid , 10) ,
+      nAdults : parseInt(noOfAdults , 10),
+      nChildren : parseInt(noOfChildren , 10)
+    }
+    axios.post("http://localhost:8070/payments/CalculatePayment" , booking ).then((response)=>{
+      console.log("Hi");
+        console.log(response.json());
+        setTotalPayment(response.json());
+      }).catch((err)=>{
+          alert(err);
+     });
+
+
   }
 
   function AddReservationClick(e) {
@@ -107,7 +112,7 @@ function AddReservationHotel() {
       totalPayment
     }
 
-    axios.post("http://localhost:8070/reservation/save" , newReservation ).then(()=>{
+    axios.post("http://localhost:8070/reservation/save/" , newReservation ).then(()=>{
         alert("Reservation added");
       }).catch((err)=>{
           alert(err);
@@ -127,59 +132,59 @@ function AddReservationHotel() {
             <MKBox p={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                  <MKInput variant="standard" name = "Fname" value = {firstName} label="First Name" fullWidth
+                  <MKInput variant="standard" name = "Fname" value = {firstName} label="First Name" fullWidth required
                   onChange = {(e) =>{
                     setFname(e.target.value);
                   }} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MKInput variant="standard" name = "Lname" value = {lastName} label="Last Name" fullWidth 
+                  <MKInput variant="standard" name = "Lname" value = {lastName} label="Last Name" fullWidth required
                   onChange = {(e) =>{
                     setLname(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <MKInput variant="standard" type="email" name = "email" value = {email} label="Email Address" fullWidth 
+                  <MKInput variant="standard" type="email" name = "email" value = {email} label="Email Address" fullWidth required
                   onChange = {(e) =>{
                     setEmail(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <MKInput variant="standard" name = "telNo" value = {telNo} label="Telephone Number" fullWidth 
+                  <MKInput variant="standard" name = "telNo" value = {telNo} label="Telephone Number" fullWidth required
                   onChange = {(e) =>{
                     setTelno(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <MKInput variant="standard" name = "country" value = {country} label="Country" fullWidth 
+                  <MKInput variant="standard" name = "country" value = {country} label="Country" fullWidth required
                   onChange = {(e) =>{
                     setCountry(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MKInput type="date" variant="standard" name = "CheckIn" value = {checkInDate} label="Check in Date" fullWidth 
+                  <MKInput type="date" variant="standard" name = "CheckIn" value = {checkInDate} label="Check in Date" fullWidth InputLabelProps={{ shrink: true }} required
                   onChange = {(e) =>{
                     setCheckIn(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MKInput type="date" variant="standard" name = "CheckOut" value = {checkOutDate} label="Check out Date" fullWidth 
+                  <MKInput type="date" variant="standard" name = "CheckOut" value = {checkOutDate} label="Check out Date" fullWidth InputLabelProps={{ shrink: true }} required
                   onChange = {(e) =>{
                     setCheckOut(e.target.value);
                   }}                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <MKInput variant="standard" name = "Room" value = {room} label="Room" fullWidth 
+                  <MKInput variant="standard"  name = "Room" value = {room} label="Room" fullWidth required 
                   onChange = {(e) =>{
                     setRoom(e.target.value);
-                    CalculatePayment(room);
+                   
                   }}                  />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MKInput variant="standard" name = "ChildrenN" value = {noOfChildren} label="Number of Children" fullWidth 
+                  <MKInput variant="standard" type = "number" name = "ChildrenN" value = {noOfChildren} label="Number of Children" fullWidth min = "0"  required 
                   onChange = {(e) =>{
                     setChidren(e.target.value);
-                    CalculatePayment(room);
+                   
                   }}                  />
                   {/* <input type="number" min="1" max = "10" onChange = {(e) =>{
                     setChidren(e.target.value);
@@ -187,22 +192,30 @@ function AddReservationHotel() {
                   }}/> */}
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MKInput variant="standard" name = "AdultsN" value = {noOfAdults} label="Number of Adults" fullWidth 
+                  <MKInput variant="standard" type = "number" name = "AdultsN" value = {noOfAdults} label="Number of Adults" fullWidth min = "0"  required
                   onChange = {(e) =>{
                     setAdults(e.target.value);
-                    CalculatePayment(room);
+                  
                   }}                  />
+
+                
                 {/* <input type="number" min="1" max = "10" onChange = {(e) =>{
                     setAdults(e.target.value);
                     CalculatePayment(room);
                   }}/> */}
                 </Grid>
+                <Grid item xs={12} md={12}>
+                  <MKButton variant="gradient" color="info" fullWidth onClick = {() =>{
+                    CalculatePayment(room);
+                  }} >Get Payment</MKButton>
+                </Grid>
+                
                 <Grid item xs={12}>
                   <MKInput variant="standard" name = "TotalPayment" value = {totalPayment} label="Total Payment" fullWidth  disabled          />
                 </Grid>
-              </Grid>
+              </Grid> <br/>
               <Grid container item justifyContent="center" xs={12} my={2}>
-                <MKButton type="submit" variant="gradient" color="dark" fullWidth onClick = {(event) =>{
+                <MKButton type="submit" variant="gradient" color="info"  fullWidth circular onClick = {(event) =>{
                   AddReservationClick(event);
                 }}>
                   Add Reservation
