@@ -33,6 +33,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import "./css/admin.css";
 
 function LoginType() {
+  ReactSession.setStoreType("memory");
   const navigate = useNavigate();
   let loginType;
 

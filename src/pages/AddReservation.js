@@ -1,7 +1,9 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ReactSession } from "react-client-session";
+import { useNavigate } from "react-router-dom";
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -15,6 +17,7 @@ import MKTypography from "components/MKTypography";
 import axios from 'axios';
 
 function AddReservationHotel() {
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
   const [firstName , setFname] = useState("");
   const [lastName , setLname] = useState("");
@@ -65,7 +68,13 @@ function AddReservationHotel() {
     },
   ];
 
-
+  useEffect(() =>{
+    ReactSession.setStoreType("memory");
+    const userType = ReactSession.get("loginType");
+    if(userType === null || userType !== 2) {
+      navigate("/loginType");
+    }
+  });
   function CalculatePayment (SelectedRoom){
 
     console.log(SelectedRoom);

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -20,6 +21,7 @@ import routes from "routes";
 import axios from "axios";
 
 function AddEmployee() {
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");

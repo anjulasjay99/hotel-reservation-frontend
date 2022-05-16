@@ -41,16 +41,17 @@ function Login() {
   let userType;
 
   useEffect(() =>{
-    ReactSession.setStoreType("localStorage");
+    ReactSession.setStoreType("memory");
     userType = ReactSession.get("loginType");
-    if(userType === null) {
+    console.log(userType);
+    if(userType === null || userType === undefined) {
       navigate("/loginType");
     }
-  }, []);
+  });
 
   
   function onClickSignIn(e) {
-    
+    console.log(userType);
     e.preventDefault();
     if (userType === 1){
       axios.get(`http://localhost:8070/login/check/${username}`).then((res) =>{
@@ -61,7 +62,7 @@ function Login() {
             }
             else{
               ReactSession.set("loginData" , res.data);
-              navigate("/reserve-room");
+              navigate("/view-rooms");
               // Redirect to pages based on role.
             }
   

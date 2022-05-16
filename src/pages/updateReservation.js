@@ -13,7 +13,7 @@ import axios from 'axios';
 import {useNavigate,useParams} from "react-router-dom"
 
 function UpdateReservation() {
-  const {id} = useParams();
+
   const [firstName , setFname] = useState('');
   const [lastName , setLname] = useState("");
   const [email , setEmail] = useState("");
@@ -29,7 +29,7 @@ function UpdateReservation() {
   const [priceC , setPriceC] = useState(""); 
  
   const hotel = "Rivers Edge Nature Resorts";
-
+  const {id} = useParams();
   const rooms = [
     {
       id: "1",
@@ -89,6 +89,7 @@ function UpdateReservation() {
 
  
   useEffect(()=>{
+    
     axios.get(`http://localhost:8070/reservation/get/${id}`).then((res)=>{
       
       console.log(res.data)
