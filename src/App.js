@@ -45,6 +45,7 @@ import Registration from "pages/Registration";
 import AdminHome from "pages/AdminHome";
 import AddEmployee from "pages/AddEmployee";
 import ViewEmployees from "pages/ViewEmployees";
+import LoginType from "pages/loginType";
 import EmployeeHome from "pages/EmployeeHome";
 
 export default function App() {
@@ -98,7 +99,9 @@ export default function App() {
         <Route path="/admin-home" element={<AdminHome />} />
         <Route path="add-employee" element={<AddEmployee />} />
         <Route path="/view-employees" element={<ViewEmployees />} />
+        <Route path="/loginType" element={<LoginType />} />
         <Route path="/employee-home" element={<EmployeeHome/>} />
+
       </Routes>
     </ThemeProvider>
   );

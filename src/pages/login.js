@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import axios from "axios";
 import { ReactSession } from "react-client-session";
 import { useNavigate , Link } from "react-router-dom";
@@ -38,7 +38,17 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const userType = 1;
+  let userType;
+
+  useEffect(() =>{
+    ReactSession.setStoreType("localStorage");
+    userType = ReactSession.get("loginType");
+    if(userType === null) {
+      navigate("/loginType");
+    }
+  }, []);
+
+  
   function onClickSignIn(e) {
     
     e.preventDefault();
@@ -51,7 +61,6 @@ function Login() {
             }
             else{
               ReactSession.set("loginData" , res.data);
-              ReactSession.set("userType" , userType);
               navigate("/reserve-room");
               // Redirect to pages based on role.
             }
@@ -68,13 +77,12 @@ function Login() {
     else if (userType === 2){
       axios.get(`http://localhost:8070/login/checkEmp/${username}`).then((res) =>{
         if (res.data === true){
-          axios.get(`http://localhost:8070/login/getAdmin`).then((r) =>{
-            if(password !== r.data.nic){
+          axios.get(`http://localhost:8070/login/getEmp/${username}`).then((r) =>{
+            if(password !== r.data.password){
               alert("Check Password!");
             }
             else{
               ReactSession.set("loginData" , res.data);
-              ReactSession.set("userType" , userType);
               navigate("/reserve-room");
               // Redirect to pages based on role.
             }
@@ -91,15 +99,14 @@ function Login() {
     else{
       axios.get(`http://localhost:8070/login/getAdmin/${username}`).then((res) =>{
         if (res.data === true){
-          axios.get(`http://localhost:8070/login/getEmp/${username}`).then((r) =>{
+          axios.get(`http://localhost:8070/login/getAdmin`).then((r) =>{
             if(password !== r.data.password){
               alert("Check Password!");
             }
             else{
               ReactSession.set("loginData" , res.data);
-              ReactSession.set("userType" , userType);
-              navigate("/reserve-room");
-              // Redirect to pages based on role.
+              navigate("/admin-home");
+            
             }
   
           })
