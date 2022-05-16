@@ -21,7 +21,7 @@ function ViewReservation() {
       console.log(err);
     })
   },[])
-  const number = 1;
+
   const navigate = useNavigate();
 
   const getData = () => {
@@ -48,27 +48,27 @@ function ViewReservation() {
         <br />
         <br />
         <div style={{ marginLeft: "20px" }}>
-          <table className="table table-striped">
+          <table className="table table-striped text-nowrap">
             <thead>
               <th scope="col">#</th>
-              <th scope="col">Reservation Date</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Email Address</th>
-              <th scope="col">Telephone Number</th>
-              <th scope="col">Country</th>
-              <th scope="col">Check In Date</th>
-              <th scope="col">Check Out Date</th>
-              <th scope="col">Room</th>
-              <th scope="col">Number of Children</th>
-              <th scope="col">Number of Adults</th>
-              <th scope="col">Payment</th>
-              <th scope="col">Actions</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Reservation Date</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>First Name</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Last Name</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Email Address</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Telephone Number</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Country</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Check In Date</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Check Out Date</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Room</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Number of Children</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Number of Adults</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Payment</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Actions</th>
             </thead>
             <tbody>
               {reservations.map((reservation) =>(
                               <tr>
-                              <th scope="row">{number + 1}</th>
+                              <th scope="row">{reservations.indexOf(reservation) + 1}</th>
                               <td>Date</td>
                               <td>{reservation.firstName}</td>
                               <td>{reservation.lastName}</td>
@@ -78,8 +78,8 @@ function ViewReservation() {
                               <td>{reservation.checkInDate}</td>
                               <td>{reservation.checkOutDate}</td>
                               <td>{reservation.room}</td>
-                              <td>{reservation.noOfChildren}</td>
-                              <td>{reservation.noOfAdults}</td>
+                              <td style={{textAlign :"center"}}>{reservation.noOfChildren}</td>
+                              <td style={{textAlign :"center"}}>{reservation.noOfAdults}</td>
                               <td>{reservation.totalPayment}</td>
                               <td>
                                 <MKButton variant="gradient" color="info"
