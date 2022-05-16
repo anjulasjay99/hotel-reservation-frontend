@@ -15,7 +15,7 @@ import {useNavigate} from "react-router-dom"
 
 function UpdateReservation() {
 
-  const [firstName , setFname] = useState("");
+  const [firstName , setFname] = useState('');
   const [lastName , setLname] = useState("");
   const [email , setEmail] = useState("");
   const [telNo , setTelno] = useState("");
