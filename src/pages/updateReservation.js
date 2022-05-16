@@ -9,13 +9,12 @@ import MKBox from "components/MKBox";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
-import { useParams } from 'react-router';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom"
+import {useNavigate,useParams} from "react-router-dom"
 
 function UpdateReservation() {
-
-  const [firstName , setFname] = useState("");
+ 
+  const [firstName , setFname] = useState('');
   const [lastName , setLname] = useState("");
   const [email , setEmail] = useState("");
   const [telNo , setTelno] = useState("");
@@ -28,7 +27,7 @@ function UpdateReservation() {
   const [totalPayment , setTotalPayment] = useState(0);
   const [priceA , setPriceA] = useState("");
   const [priceC , setPriceC] = useState(""); 
-  
+
   const hotel = "Rivers Edge Nature Resorts";
   const {id} = useParams();
   const rooms = [
@@ -88,10 +87,11 @@ function UpdateReservation() {
       console.log(totalPayment);
   }
 
-
+ 
   useEffect(()=>{
     
     axios.get(`http://localhost:8070/reservation/get/${id}`).then((res)=>{
+      
       console.log(res.data)
       setFname(res.data.firstName);
       setLname(res.data.lastName)
