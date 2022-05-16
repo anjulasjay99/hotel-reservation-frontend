@@ -6,13 +6,20 @@ import { React , useState, useEffect } from "react";
 import MKBox from "components/MKBox";
 import MKButton from "components/MKButton";
 import axios from "axios";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { ReactSession } from "react-client-session";
 
 function ViewReservation() {
 
+  const navigate = useNavigate();
   const [reservations , setReservations] = useState([]);
 
   useEffect(() =>{
+    ReactSession.setStoreType("memory");
+    const userType = ReactSession.get("loginType");
+    if(userType === null || userType !== 2) {
+      navigate("/loginType");
+    }
     axios.get("http://localhost:8070/reservation/getAll").then((res)=>{
       console.log(res);
       setReservations(res.data);
@@ -20,9 +27,9 @@ function ViewReservation() {
       alert("Error");
       console.log(err);
     })
-  },[])
+  })
 
-  const navigate = useNavigate();
+
 
   const getData = () => {
     axios.get(`http://localhost:8070/reservation/getAll`)

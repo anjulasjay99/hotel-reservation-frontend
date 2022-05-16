@@ -4,8 +4,11 @@
 import axios from "axios";
 import { React, useState } from "react";
 import "./css/registration.css";
+import { useNavigate } from "react-router-dom";
+import { ReactSession } from "react-client-session";
 
 function Registration() {
+  const navigate = useNavigate();
   const [fullName, setfullName] = useState("");
   const [userName, setuserName] = useState("");
   const [email, setemail] = useState("");
@@ -43,6 +46,10 @@ function Registration() {
       .catch((err) => {
         alert(err);
       });
+      const loginType = 1;
+      ReactSession.set("loginType" , loginType);
+      navigate("/login");
+      
   }
 
   return (
