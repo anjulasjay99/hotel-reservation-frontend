@@ -1,6 +1,8 @@
 import MKBox from "components/MKBox";
+import { useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { ReactSession } from "react-client-session";
 import "./css/Rooms.css";
 import room1 from "./images/room1.jpg";
 import room2 from "./images/room2.jpg";
@@ -10,7 +12,13 @@ import room5 from "./images/room5.jpg";
 
 function RoomsView() {
   const navigate = useNavigate();
-
+  useEffect(() =>{
+    ReactSession.setStoreType("memory");
+    const userType = ReactSession.get("loginType");
+    if(userType === null || userType !== 1) {
+      navigate("/loginType");
+    }
+  })
   function ReserveClick(room) {
     navigate("/reserve-room", { state: { room } });
   }
