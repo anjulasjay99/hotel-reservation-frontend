@@ -1,7 +1,9 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import { ReactSession } from "react-client-session";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -62,6 +64,13 @@ function Payment({ setRsvInfo }) {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("username")) {
+      navigate("/loginType");
+    }
+  }, []);
+
   return (
     <>
       <DefaultNavbar

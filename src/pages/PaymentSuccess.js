@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactSession } from "react-client-session";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -9,6 +10,7 @@ import MKBox from "components/MKBox";
 import bgImage from "assets/images/success.png";
 
 function PaymentSuccess({ rsvInfo }) {
+  const navigate = useNavigate();
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -36,9 +38,13 @@ function PaymentSuccess({ rsvInfo }) {
   };
 
   useEffect(() => {
-    const reservation = localStorage.getItem("reservationDetails");
-    if (reservation !== "" || reservation !== undefined) {
-      saveReservation(JSON.parse(reservation));
+    if (!sessionStorage.getItem("username")) {
+      navigate("/loginType");
+    } else {
+      const reservation = localStorage.getItem("reservationDetails");
+      if (reservation !== "" || reservation !== undefined) {
+        saveReservation(JSON.parse(reservation));
+      }
     }
   }, []);
 

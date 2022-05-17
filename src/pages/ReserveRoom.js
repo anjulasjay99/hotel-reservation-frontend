@@ -22,6 +22,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+import { ReactSession } from "react-client-session";
 
 import bgImage from "assets/images/illustrations/illustration-reset.jpg";
 import room1 from "./images/room1.jpg";
@@ -36,6 +37,7 @@ function ReserveRoom() {
   const navigate = useNavigate();
   const location = useLocation();
   const [checked, setChecked] = useState(false);
+  const [userName, setuserName] = useState("");
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
   const [email, setemail] = useState("");
@@ -100,6 +102,7 @@ function ReserveRoom() {
         noOfChildren,
         noOfAdults,
         totalPayment,
+        userName,
       };
       navigate("/payment", { state: { reservation } });
     } else {
@@ -113,7 +116,14 @@ function ReserveRoom() {
     flexDirection: "row",
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    ReactSession.setStoreType("memory");
+    if (sessionStorage.getItem("username")) {
+      setuserName(sessionStorage.getItem("username"));
+    } else {
+      navigate("/loginType");
+    }
+  }, []);
   if (!location.state) {
     navigate("/view-rooms");
     return null;

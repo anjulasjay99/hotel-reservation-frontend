@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ReactSession } from "react-client-session";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -26,6 +27,7 @@ import bgImage from "assets/images/header.jpg";
 
 function MyReservations() {
   const navigate = useNavigate();
+  const [username, setusername] = useState("");
   const [reservations, setreservations] = useState([
     {
       id: "12345",
@@ -39,7 +41,7 @@ function MyReservations() {
   ]);
 
   const getReservations = async () => {
-    await fetch("http://localhost:8070/reservation/getAll")
+    await fetch(`http://localhost:8070/reservation/getAll/${sessionStorage.getItem("username")}`)
       .then((res) => res.json())
       .then((res) => {
         setreservations(res);
@@ -51,7 +53,12 @@ function MyReservations() {
   };
 
   useEffect(() => {
-    getReservations();
+    if (sessionStorage.getItem("username")) {
+      setusername(sessionStorage.getItem("username"));
+      getReservations();
+    } else {
+      navigate("/loginType");
+    }
   }, []);
 
   return (

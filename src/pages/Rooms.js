@@ -12,13 +12,13 @@ import room5 from "./images/room5.jpg";
 
 function RoomsView() {
   const navigate = useNavigate();
-  useEffect(() =>{
+  useEffect(() => {
     ReactSession.setStoreType("memory");
     const userType = ReactSession.get("loginType");
-    if(userType === null || userType !== 1) {
+    if (userType === null || userType !== 1) {
       navigate("/loginType");
     }
-  })
+  });
   function ReserveClick(room) {
     navigate("/reserve-room", { state: { room } });
   }
