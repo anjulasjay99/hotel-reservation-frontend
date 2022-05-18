@@ -1,7 +1,9 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import { ReactSession } from "react-client-session";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -62,18 +64,16 @@ function Payment({ setRsvInfo }) {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("username")) {
+      navigate("/loginType");
+    }
+  }, []);
+
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={[]} sticky />
 
       <MKBox component="section" py={15}>
         <Container>
@@ -205,8 +205,13 @@ function Payment({ setRsvInfo }) {
           </div>
         </Container>
       </MKBox>
-      <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
+      <MKBox pt={6} px={1} mt={6} style={{ background: "white" }}>
+        <Container>
+          <div>
+            <h5>Hotel Reservation System</h5>
+            <br />
+          </div>
+        </Container>
       </MKBox>
     </>
   );

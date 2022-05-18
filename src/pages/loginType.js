@@ -28,7 +28,7 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/header.jpg";
-import { MdOutlinePerson , MdOutlinePersonalInjury } from "react-icons/md";
+import { MdOutlinePerson, MdOutlinePersonalInjury } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
 import "./css/admin.css";
 
@@ -39,37 +39,25 @@ function LoginType() {
 
   const adminClick = () => {
     loginType = 3;
-    ReactSession.set("loginType" , loginType);
+    ReactSession.set("loginType", loginType);
     navigate("/login");
-
   };
   const employeeClick = () => {
-    loginType = 2;  
-    ReactSession.set("loginType" , loginType);
+    loginType = 2;
+    ReactSession.set("loginType", loginType);
     navigate("/login");
   };
   const travellerClick = () => {
-    loginType = 1;  
-    ReactSession.set("loginType" , loginType);
+    loginType = 1;
+    ReactSession.set("loginType", loginType);
     navigate("/login");
   };
-
-
 
   useEffect(() => {}, []);
 
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={[]} sticky />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -138,8 +126,13 @@ function LoginType() {
           </Col>
         </Row>
       </Container>
-      <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
+      <MKBox pt={6} px={1} mt={6} style={{ background: "white" }}>
+        <Container>
+          <div>
+            <h5>Hotel Reservation System</h5>
+            <br />
+          </div>
+        </Container>
       </MKBox>
     </>
   );

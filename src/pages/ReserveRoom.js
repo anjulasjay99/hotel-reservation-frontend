@@ -22,6 +22,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
+import { ReactSession } from "react-client-session";
 
 import bgImage from "assets/images/illustrations/illustration-reset.jpg";
 import room1 from "./images/room1.jpg";
@@ -36,6 +37,7 @@ function ReserveRoom() {
   const navigate = useNavigate();
   const location = useLocation();
   const [checked, setChecked] = useState(false);
+  const [userName, setuserName] = useState("");
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
   const [email, setemail] = useState("");
@@ -63,8 +65,8 @@ function ReserveRoom() {
     await axios
       .post("http://localhost:8070/payments/calculate", {
         roomId: parseInt(location.state.room.id, 10),
-        nChildren: noOfChildren,
-        nAdults: noOfAdults,
+        noOfChildren,
+        noOfAdults,
       })
       .then((res) => {
         settotalPayment(res.data);
@@ -100,6 +102,7 @@ function ReserveRoom() {
         noOfChildren,
         noOfAdults,
         totalPayment,
+        userName,
       };
       navigate("/payment", { state: { reservation } });
     } else {
@@ -113,23 +116,21 @@ function ReserveRoom() {
     flexDirection: "row",
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    ReactSession.setStoreType("memory");
+    if (sessionStorage.getItem("username")) {
+      setuserName(sessionStorage.getItem("username"));
+    } else {
+      navigate("/loginType");
+    }
+  }, []);
   if (!location.state) {
     navigate("/view-rooms");
     return null;
   } else {
     return (
       <>
-        <DefaultNavbar
-          routes={routes}
-          action={{
-            type: "external",
-            route: "https://www.creative-tim.com/product/material-kit-react",
-            label: "free download",
-            color: "info",
-          }}
-          sticky
-        />
+        <DefaultNavbar routes={[]} sticky />
         <MKBox component="section" py={15}>
           <Container style={style}>
             <div style={{ width: "40%" }}>
@@ -359,8 +360,13 @@ function ReserveRoom() {
             </div>
           </Container>
         </MKBox>
-        <MKBox pt={6} px={1} mt={6}>
-          <DefaultFooter content={footerRoutes} />
+        <MKBox pt={6} px={1} mt={6} style={{ background: "white" }}>
+          <Container>
+            <div>
+              <h5>Hotel Reservation System</h5>
+              <br />
+            </div>
+          </Container>
         </MKBox>
       </>
     );
