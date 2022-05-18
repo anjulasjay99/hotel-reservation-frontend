@@ -55,16 +55,7 @@ function AddEmployee() {
 
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={[]} sticky />
       <MKBox component="section" py={12}>
         <Container>
           <Grid container item justifyContent="center" xs={10} lg={7} mx="auto" textAlign="center">
