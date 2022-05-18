@@ -65,8 +65,8 @@ function ReserveRoom() {
     await axios
       .post("http://localhost:8070/payments/calculate", {
         roomId: parseInt(location.state.room.id, 10),
-        nChildren: noOfChildren,
-        nAdults: noOfAdults,
+        noOfChildren,
+        noOfAdults,
       })
       .then((res) => {
         settotalPayment(res.data);
