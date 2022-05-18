@@ -84,7 +84,7 @@ function Login() {
             }
             else{
               ReactSession.set("loginData" , res.data);
-              navigate("/reserve-room");
+              navigate("/employee-home");
               // Redirect to pages based on role.
             }
   
