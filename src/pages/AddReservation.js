@@ -107,6 +107,7 @@ function AddReservationHotel() {
    
     e.preventDefault();
     const newReservation = {
+      userName : "user",
       firstName,
       lastName,
       email,
@@ -121,7 +122,7 @@ function AddReservationHotel() {
       totalPayment
     }
 
-    axios.post("http://localhost:8070/reservation/save/" , newReservation ).then(()=>{
+    axios.post("http://localhost:8070/reservation/save" , newReservation ).then(()=>{
         alert("Reservation added");
       }).catch((err)=>{
           alert(err);
