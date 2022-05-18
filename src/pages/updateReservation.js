@@ -27,7 +27,6 @@ function UpdateReservation() {
   const [totalPayment , setTotalPayment] = useState(0);
   const [priceA , setPriceA] = useState("");
   const [priceC , setPriceC] = useState(""); 
-
   const hotel = "Rivers Edge Nature Resorts";
   const {id} = useParams();
   const rooms = [

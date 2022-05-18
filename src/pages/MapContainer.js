@@ -23,7 +23,7 @@ function MapContainer(){
           <Grid container alignItems="center" py={3} >
           <Grid item xs={12} sm={3}>
             <MKTypography variant="button" color="blue" fontWeight="bold" textTransform="uppercase">
-              <h3>Galadari Hotel</h3>
+              <h3>Tour Lanka</h3>
               Address: 64 Lotus Rd, Colombo 00100
               <br/>
               Phone: 0112 544 544
