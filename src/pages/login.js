@@ -56,10 +56,10 @@ function Login() {
         .then((res) => {
           if (res.data === true) {
             axios.get(`http://localhost:8070/login/get/${username}`).then((r) => {
-              if (password !== r.data.Password) {
+              if (password !== r.data[0].Password) {
                 alert("Check Password!");
               } else {
-                ReactSession.set("loginData", res.data);
+                ReactSession.set("loginData", r.data[0]);
 
                 sessionStorage.setItem("username", username);
                 navigate("/view-rooms");
@@ -79,11 +79,14 @@ function Login() {
         .then((res) => {
           if (res.data === true) {
             axios.get(`http://localhost:8070/login/getEmp/${username}`).then((r) => {
-              if (password !== r.data.password) {
+              console.log(r.data.password);
+            
+              console.log(r.data);
+              if (password !== r.data[0].password) {
                 alert("Check Password!");
               } else {
-                ReactSession.set("loginData", res.data);
-                navigate("/reserve-room");
+                ReactSession.set("loginData", r.data[0]);
+                navigate("/employee-home");
                 // Redirect to pages based on role.
               }
             });
@@ -103,7 +106,7 @@ function Login() {
               if (password !== r.data.password) {
                 alert("Check Password!");
               } else {
-                ReactSession.set("loginData", res.data);
+                ReactSession.set("loginData", r.data);
                 navigate("/admin-home");
               }
             });
