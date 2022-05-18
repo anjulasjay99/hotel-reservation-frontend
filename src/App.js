@@ -82,7 +82,7 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route path="/presentation" element={<Presentation />} />
-        <Route path="*" element={<Navigate to="/presentation" />} />
+        <Route path="*" element={<Navigate to="/loginType" />} />
         <Route path="/reserve-room" element={<ReserveRoom />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/cancel-reservation" element={<CancelReservation />} />
@@ -100,8 +100,7 @@ export default function App() {
         <Route path="add-employee" element={<AddEmployee />} />
         <Route path="/view-employees" element={<ViewEmployees />} />
         <Route path="/loginType" element={<LoginType />} />
-        <Route path="/employee-home" element={<EmployeeHome/>} />
-
+        <Route path="/employee-home" element={<EmployeeHome />} />
       </Routes>
     </ThemeProvider>
   );

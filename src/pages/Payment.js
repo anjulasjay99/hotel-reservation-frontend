@@ -73,16 +73,7 @@ function Payment({ setRsvInfo }) {
 
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={[]} sticky />
 
       <MKBox component="section" py={15}>
         <Container>
@@ -214,8 +205,13 @@ function Payment({ setRsvInfo }) {
           </div>
         </Container>
       </MKBox>
-      <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
+      <MKBox pt={6} px={1} mt={6} style={{ background: "white" }}>
+        <Container>
+          <div>
+            <h5>Hotel Reservation System</h5>
+            <br />
+          </div>
+        </Container>
       </MKBox>
     </>
   );
