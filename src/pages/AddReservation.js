@@ -89,13 +89,14 @@ function AddReservationHotel() {
     })
     const booking = {
       roomId : parseInt(rid , 10) ,
-      nAdults : parseInt(noOfAdults , 10),
-      nChildren : parseInt(noOfChildren , 10)
+      noOfChildren,
+      noOfAdults,
+      
     }
-    axios.post("http://localhost:8070/payments/CalculatePayment" , booking ).then((response)=>{
+    axios.post("http://localhost:8070/payments/calculate" , booking ).then((response)=>{
       console.log("Hi");
-        console.log(response.json());
-        setTotalPayment(response.json());
+        console.log(response.data);
+        setTotalPayment(response.data);
       }).catch((err)=>{
           alert(err);
      });
