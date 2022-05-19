@@ -38,7 +38,7 @@ function ViewEmployees() {
 
   const fetchEmployees = async () => {
     await axios
-      .get("http://localhost:8070/employees")
+      .get("http://localhost:8280/employees/getAll")
       .then((res) => {
         setemployees(res.data);
       })

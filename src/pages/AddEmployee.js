@@ -46,7 +46,7 @@ function AddEmployee() {
       password,
     };
     axios
-      .post("http://localhost:8070/employees", employee)
+      .post("http://localhost:8280/employees/add", employee)
       .then(() => {
         alert("Added Successfully!");
       })

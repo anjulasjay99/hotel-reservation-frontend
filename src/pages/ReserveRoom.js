@@ -63,7 +63,7 @@ function ReserveRoom() {
 
   const getTotalPayment = async () => {
     await axios
-      .post("http://localhost:8070/payments/calculate", {
+      .post("http://localhost:8280/payments/calculate", {
         roomId: parseInt(location.state.room.id, 10),
         noOfChildren,
         noOfAdults,
