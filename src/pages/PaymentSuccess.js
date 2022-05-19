@@ -20,7 +20,7 @@ function PaymentSuccess({ rsvInfo }) {
   };
 
   const saveReservation = async (reservation) => {
-    await fetch(`http://localhost:8070/reservation/save`, {
+    await fetch(`http://localhost:8280/reservation/addreservation`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
