@@ -52,10 +52,10 @@ function Login() {
     e.preventDefault();
     if (userType === 1) {
       axios
-        .get(`http://localhost:8070/login/check/${username}`)
+        .get(`http://localhost:8280/logins/traveller/checkusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-            axios.get(`http://localhost:8070/login/get/${username}`).then((r) => {
+            axios.get(`http://localhost:8280/logins/traveller/info/${username}`).then((r) => {
               if (password !== r.data.Password) {
                 alert("Check Password!");
               } else {
@@ -75,10 +75,10 @@ function Login() {
         });
     } else if (userType === 2) {
       axios
-        .get(`http://localhost:8070/login/checkEmp/${username}`)
+        .get(`http://localhost:8280/logins/employee/checkusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-            axios.get(`http://localhost:8070/login/getEmp/${username}`).then((r) => {
+            axios.get(`http://localhost:8280/logins/employee/info/${username}`).then((r) => {
               if (password !== r.data.password) {
                 alert("Check Password!");
               } else {
@@ -96,10 +96,10 @@ function Login() {
         });
     } else {
       axios
-        .get(`http://localhost:8070/login/getAdmin/${username}`)
+        .get(`http://localhost:8280/logins/admins/getusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-            axios.get(`http://localhost:8070/login/getAdmin`).then((r) => {
+            axios.get(`http://localhost:8280/logins/admins/info`).then((r) => {
               if (password !== r.data.password) {
                 alert("Check Password!");
               } else {
