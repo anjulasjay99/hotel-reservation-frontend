@@ -13,19 +13,21 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateReservation() {
-  const [firstName, setFname] = useState("");
-  const [lastName, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [telNo, setTelno] = useState("");
-  const [country, setCountry] = useState("");
-  const [checkInDate, setCheckIn] = useState("");
-  const [checkOutDate, setCheckOut] = useState("");
-  const [room, setRoom] = useState("");
-  const [noOfChildren, setChidren] = useState(0);
-  const [noOfAdults, setAdults] = useState(0);
-  const [totalPayment, setTotalPayment] = useState(0);
-  const [priceA, setPriceA] = useState("");
-  const [priceC, setPriceC] = useState("");
+
+ 
+  const [firstName , setFname] = useState('');
+  const [lastName , setLname] = useState("");
+  const [email , setEmail] = useState("");
+  const [telNo , setTelno] = useState("");
+  const [country , setCountry] = useState("");
+  const [checkInDate , setCheckIn] = useState("");
+  const [checkOutDate , setCheckOut] = useState("");
+  const [room , setRoom] = useState("");
+  const [noOfChildren , setChidren] = useState(0);
+  const [noOfAdults , setAdults] = useState(0);
+  const [totalPayment , setTotalPayment] = useState(0);
+  const [priceA , setPriceA] = useState("");
+  const [priceC , setPriceC] = useState(""); 
 
   const hotel = "Rivers Edge Nature Resorts";
   const { id } = useParams();

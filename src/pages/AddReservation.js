@@ -87,6 +87,7 @@ function AddReservationHotel() {
       console.log(rid);
     });
     const booking = {
+
       roomId: parseInt(rid, 10),
       noOfAdults: parseInt(noOfAdults, 10),
       noOfChildren: parseInt(noOfChildren, 10),
@@ -101,11 +102,13 @@ function AddReservationHotel() {
       .catch((err) => {
         alert(err);
       });
+
   }
 
   function AddReservationClick(e) {
     e.preventDefault();
     const newReservation = {
+      userName : "user",
       firstName,
       lastName,
       email,
@@ -120,9 +123,11 @@ function AddReservationHotel() {
       totalPayment,
     };
 
+
     axios
       .post("http://localhost:8280/reservation/addreservation/", newReservation)
       .then(() => {
+
         alert("Reservation added");
       })
       .catch((err) => {

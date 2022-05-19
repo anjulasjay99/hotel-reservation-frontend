@@ -58,73 +58,53 @@ function ViewReservation() {
           <table className="table table-striped text-nowrap">
             <thead>
               <th scope="col">#</th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Reservation Date
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                First Name
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Last Name
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Email Address
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Telephone Number
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Country
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Check In Date
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Check Out Date
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Room
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Number of Children
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Number of Adults
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Payment
-              </th>
-              <th scope="col" style={{ padding: "0px 15px" }}>
-                Actions
-              </th>
+
+              <th scope="col" style = {{padding : "0px 15px"}}>First Name</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Last Name</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Email Address</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Telephone Number</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Country</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Check In Date</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Check Out Date</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Room</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Number of Children</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Number of Adults</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Payment</th>
+              <th scope="col" style = {{padding : "0px 15px"}}>Actions</th>
             </thead>
             <tbody>
-              {reservations.map((reservation) => (
-                <tr>
-                  <th scope="row">{reservations.indexOf(reservation) + 1}</th>
-                  <td>Date</td>
-                  <td>{reservation.firstName}</td>
-                  <td>{reservation.lastName}</td>
-                  <td>{reservation.email}</td>
-                  <td>{reservation.telNo}</td>
-                  <td>{reservation.country}</td>
-                  <td>{reservation.checkInDate}</td>
-                  <td>{reservation.checkOutDate}</td>
-                  <td>{reservation.room}</td>
-                  <td style={{ textAlign: "center" }}>{reservation.noOfChildren}</td>
-                  <td style={{ textAlign: "center" }}>{reservation.noOfAdults}</td>
-                  <td>{reservation.totalPayment}</td>
-                  <td>
-                    <MKButton
-                      variant="gradient"
-                      color="info"
-                      onClick={() => {
-                        console.log(reservation._id);
-                        navigate(`/update-reservation/${reservation._id}`);
-                      }}
-                    >
-                      Edit
-                    </MKButton>
+              {reservations.map((reservation) =>(
+                              <tr>
+                              <th scope="row">{reservations.indexOf(reservation) + 1}</th>
+                              <td>{reservation.firstName}</td>
+                              <td>{reservation.lastName}</td>
+                              <td>{reservation.email}</td>
+                              <td>{reservation.telNo}</td>
+                              <td>{reservation.country}</td>
+                              <td>{reservation.checkInDate}</td>
+                              <td>{reservation.checkOutDate}</td>
+                              <td>{reservation.room}</td>
+                              <td style={{textAlign :"center"}}>{reservation.noOfChildren}</td>
+                              <td style={{textAlign :"center"}}>{reservation.noOfAdults}</td>
+                              <td>{reservation.totalPayment}</td>
+                              <td>
+                                <MKButton variant="gradient" color="info"
+                                 onClick = {()=>{
+                                   console.log(reservation._id)
+                                   navigate(`/update-reservation/${reservation._id}`);
+                                 }}>
+                                Edit
+                                </MKButton>
+                                
+                                <MKButton variant="gradient" color="error"
+                                onClick = {()=>{
+                                  deleteReservation(reservation)
+                                }}>
+                                  Delete
+                                </MKButton>
+                              </td>
+                            </tr>
+              ))}
 
                     <MKButton
                       variant="gradient"
