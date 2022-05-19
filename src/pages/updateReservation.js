@@ -28,6 +28,7 @@ function UpdateReservation() {
   const [priceA , setPriceA] = useState("");
   const [priceC , setPriceC] = useState(""); 
   const hotel = "Rivers Edge Nature Resorts";
+  const [rid , setId] = useState(1);
   const {id} = useParams();
   const rooms = [
     {
@@ -63,28 +64,7 @@ function UpdateReservation() {
   ];
 
 
-  function CalculatePayment (SelectedRoom){
-    console.log("Payment");
-    console.log(SelectedRoom);
-      rooms.forEach((r) =>{
-        
-        if(r.title === SelectedRoom){
-          setPriceA(r.priceA);
-          setPriceC(r.priceC);
-          console.log(r.title);
-          console.log(r.priceA);
-          console.log(r.priceC);
-        }
-        
-          
-      });
-      console.log(noOfAdults );
-      console.log(noOfChildren );
-      const tot = priceA * noOfAdults + priceC * noOfChildren;
-      console.log(tot);
-      setTotalPayment(tot);
-      console.log(totalPayment);
-  }
+
 
  
   useEffect(()=>{
@@ -108,6 +88,35 @@ function UpdateReservation() {
     })
   
   },[])
+
+  function CalculatePayment (SelectedRoom){
+
+    console.log(SelectedRoom);
+    rooms.forEach((r) =>{
+      if(r.title === SelectedRoom){
+        setId(r.id);
+      }
+      // else{
+      //   alert("Room not found!");
+      // }
+      console.log(rid);
+    })
+    const booking = {
+      roomId : parseInt(rid , 10) ,
+      noOfChildren,
+      noOfAdults,
+      
+    }
+    axios.post("http://localhost:8070/payments/calculate" , booking ).then((response)=>{
+      console.log("Hi");
+        console.log(response.data);
+        setTotalPayment(response.data);
+      }).catch((err)=>{
+          alert(err);
+     });
+
+
+  }
 
  function UpdateReservationOnclick(e){
    e.preventDefault();
@@ -191,30 +200,30 @@ function UpdateReservation() {
                 <MKInput variant="standard" name = "Room" value = {room} label="Room" fullWidth 
                 onChange = {(e) =>{
                   setRoom(e.target.value);
-                  CalculatePayment(room);
+                 
                 }}                  />
               </Grid>
               <Grid item xs={12} md={6}>
                 <MKInput variant="standard" name = "ChildrenN" value = {noOfChildren} label="Number of Children" fullWidth 
                 onChange = {(e) =>{
                   setChidren(e.target.value);
-                  CalculatePayment(room);
+                 
                 }}                  />
-                {/* <input type="number" min="1" max = "10" onChange = {(e) =>{
-                  setChidren(e.target.value);
-                  CalculatePayment(room);
-                }}/> */}
+
               </Grid>
               <Grid item xs={12} md={6}>
                 <MKInput variant="standard" name = "AdultsN" value = {noOfAdults} label="Number of Adults" fullWidth 
                 onChange = {(e) =>{
                   setAdults(e.target.value);
-                  CalculatePayment(room);
+               
                 }}                  />
-              {/* <input type="number" min="1" max = "10" onChange = {(e) =>{
-                  setAdults(e.target.value);
-                  CalculatePayment(room);
-                }}/> */}
+
+                  <Grid item xs={12} md={12}>
+                  <MKButton variant="gradient" color="info" fullWidth onClick = {() =>{
+                    CalculatePayment(room);
+                  }} >Get Payment</MKButton>
+                </Grid>
+ 
               </Grid>
               <Grid item xs={12}>
                 <MKInput variant="standard" name = "TotalPayment" value = {totalPayment} label="Total Payment" fullWidth  disabled          />
