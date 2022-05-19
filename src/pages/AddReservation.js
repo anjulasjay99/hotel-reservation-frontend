@@ -89,14 +89,13 @@ function AddReservationHotel() {
     })
     const booking = {
       roomId : parseInt(rid , 10) ,
-      noOfChildren,
-      noOfAdults,
-      
+      nAdults : parseInt(noOfAdults , 10),
+      nChildren : parseInt(noOfChildren , 10)
     }
-    axios.post("http://localhost:8070/payments/calculate" , booking ).then((response)=>{
+    axios.post("http://localhost:8070/payments/CalculatePayment" , booking ).then((response)=>{
       console.log("Hi");
-        console.log(response.data);
-        setTotalPayment(response.data);
+        console.log(response.json());
+        setTotalPayment(response.json());
       }).catch((err)=>{
           alert(err);
      });
@@ -189,7 +188,7 @@ function AddReservationHotel() {
                   onChange = {(e) =>{
                     setRoom(e.target.value);
                    
-                  }}                  />
+                  }} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <MKInput variant="standard" type = "number" name = "ChildrenN" value = {noOfChildren} label="Number of Children" fullWidth min = "0"  required 
