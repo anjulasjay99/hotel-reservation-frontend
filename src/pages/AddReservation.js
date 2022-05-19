@@ -243,17 +243,15 @@ function AddReservationHotel() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <MKInput
-                    variant="standard"
-                    name="Room"
-                    value={room}
-                    label="Room"
-                    fullWidth
-                    required
-                    onChange={(e) => {
-                      setRoom(e.target.value);
-                    }}
-                  />
+
+                  <MKInput variant="standard"  name = "Room" value = {room} label="Room type (Deluxe King Size/King Size Sleigh Bed/Compact Double/Deluxe Twin/Large Double/King Size Four Poster)" fullWidth required 
+                  onChange = {(e) =>{
+                    setRoom(e.target.value);
+                   
+                  }}                  />
+
+                
+
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <MKInput
