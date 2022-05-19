@@ -5,7 +5,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { ReactSession } from "react-client-session";
 
 // @mui material components
@@ -129,7 +129,15 @@ function LoginType() {
       <MKBox pt={6} px={1} mt={6} style={{ background: "white" }}>
         <Container>
           <div>
-            <h5>Hotel Reservation System</h5>
+            <div className="row">
+      <div className="column" >
+      <h5>Hotel Reservation</h5>
+         </div>
+        <div className="column" >
+        <Link to="/view-location">View Location</Link>
+        </div>
+        </div>
+
             <br />
           </div>
         </Container>
