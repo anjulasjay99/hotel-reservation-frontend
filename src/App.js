@@ -47,6 +47,8 @@ import AddEmployee from "pages/AddEmployee";
 import ViewEmployees from "pages/ViewEmployees";
 import LoginType from "pages/loginType";
 import EmployeeHome from "pages/EmployeeHome";
+import TaxiReservation from "pages/TaxiReservation";
+import ViewTaxiBookings from "pages/ViewTaxiBookings";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -101,6 +103,9 @@ export default function App() {
         <Route path="/view-employees" element={<ViewEmployees />} />
         <Route path="/loginType" element={<LoginType />} />
         <Route path="/employee-home" element={<EmployeeHome />} />
+
+        <Route path="/taxi-reserve" element={<TaxiReservation />} />
+        <Route path="/view-taxibookings" element={<ViewTaxiBookings />} />
       </Routes>
     </ThemeProvider>
   );
