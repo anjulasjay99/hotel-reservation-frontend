@@ -28,6 +28,26 @@ import Presentation from "layouts/pages/presentation";
 
 // Material Kit 2 React routes
 import routes from "routes";
+import ReserveRoom from "pages/ReserveRoom";
+import MyReservations from "pages/MyReservations";
+import CancelReservation from "pages/CancelReservation";
+import Payment from "pages/Payment";
+import ViewReservation from "pages/ViewReservationsHotel";
+import AddReservationHotel from "pages/AddReservation";
+import PaymentSuccess from "pages/PaymentSuccess";
+import PaymentUnsuccessful from "pages/PaymentUnsuccessful";
+import RoomsView from "pages/Rooms";
+import MapContainer from "pages/MapContainer";
+import UpdateReservation from "pages/updateReservation";
+import Login from "pages/login";
+import Registration from "pages/Registration";
+import AdminHome from "pages/AdminHome";
+import AddEmployee from "pages/AddEmployee";
+import ViewEmployees from "pages/ViewEmployees";
+import LoginType from "pages/loginType";
+import EmployeeHome from "pages/EmployeeHome";
+import TaxiReservation from "pages/TaxiReservation";
+import ViewTaxiBookings from "pages/ViewTaxiBookings";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -58,6 +78,27 @@ export default function App() {
         {getRoutes(routes)}
         <Route path="/presentation" element={<Presentation />} />
         <Route path="*" element={<Navigate to="/presentation" />} />
+        <Route path="*" element={<Navigate to="/loginType" />} />
+        <Route path="/reserve-room" element={<ReserveRoom />} />
+        <Route path="/my-reservations" element={<MyReservations />} />
+        <Route path="/cancel-reservation" element={<CancelReservation />} />
+        <Route path="/payment" element={<Payment setRsvInfo={setRsvInfo} />} />
+        <Route path="/add-reservation-hotel" element={<AddReservationHotel />} />
+        <Route path="/view-reservation-hotel" element={<ViewReservation />} />
+        <Route path="/payment-success" element={<PaymentSuccess rsvInfo={rsvInfo} />} />
+        <Route path="/payment-unsuccessful" element={<PaymentUnsuccessful />} />
+        <Route path="/view-rooms" element={<RoomsView />} />
+        <Route path="/view-location" element={<MapContainer />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/update-reservation/:id" element={<UpdateReservation />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/admin-home" element={<AdminHome />} />
+        <Route path="add-employee" element={<AddEmployee />} />
+        <Route path="/view-employees" element={<ViewEmployees />} />
+        <Route path="/loginType" element={<LoginType />} />
+        <Route path="/employee-home" element={<EmployeeHome />} />
+        <Route path="/taxi-reserve" element={<TaxiReservation />} />
+        <Route path="/view-taxibookings" element={<ViewTaxiBookings />} />
       </Routes>
     </ThemeProvider>
   );
