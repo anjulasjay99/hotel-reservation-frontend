@@ -1,16 +1,22 @@
-
-/* eslint-disable import/order */
-
+/* eslint-disable arrow-body-style */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable spaced-comment */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { Row, Col, Table } from "reactstrap";
+import { Card, CardTitle, Button, CardText, Row, Col, Table } from "reactstrap";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
+import MKButton from "components/MKButton";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -21,20 +27,20 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-
-import bgImage from "../assets/images/taxiheader.jpg";
+import bgImage from "assets/images/header.jpg";
+import { MdPersonAddAlt, MdOutlineGroups } from "react-icons/md";
 import "./css/admin.css";
 import axios from "axios";
 
-function ViewTaxiBookings() {
+function ViewEmployees() {
+  const navigate = useNavigate();
+  const [employees, setemployees] = useState([]);
 
-  const [bookings, setbookings] = useState([]);
-
-  const fetchBookings = async () => {
+  const fetchEmployees = async () => {
     await axios
-      .get("https://api.lyko.tech/v2/reservations")
+      .get("http://localhost:8280/employees/getAll")
       .then((res) => {
-        setbookings(res.data);
+        setemployees(res.data);
       })
       .catch((err) => {
         alert(err);
@@ -42,7 +48,7 @@ function ViewTaxiBookings() {
   };
 
   useEffect(() => {
-    fetchBookings();
+    fetchEmployees();
   }, []);
 
   return (
@@ -52,13 +58,13 @@ function ViewTaxiBookings() {
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "Profile",
+          label: "free download",
           color: "info",
         }}
         sticky
       />
       <MKBox
-        minHeight="80vh"
+        minHeight="75vh"
         width="100%"
         sx={{
           backgroundImage: `url(${bgImage})`,
@@ -72,7 +78,7 @@ function ViewTaxiBookings() {
 
       <Container>
         <Grid py={2} mx={3}>
-          <MKTypography variant="h3">Taxi Reservations</MKTypography>
+          <MKTypography variant="h3">Employees</MKTypography>
         </Grid>
       </Container>
 
@@ -83,24 +89,30 @@ function ViewTaxiBookings() {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>User ID</th>
-                  <th>Booked Time</th>
-                  <th>Journey</th>
-                  <th>Journey Cost</th>
-                  <th>Journey Status</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>NIC</th>
+                  <th>Date of Birth</th>
+                  <th>Email</th>
+                  <th>Telephone No.</th>
+                  <th>Address</th>
                 </tr>
               </thead>
               <tbody>
-                {bookings.map((journey) => (
-                  <tr>
-                    <td>{bookings.indexOf(journey) + 1}</td>
-                    <td>{journey.userId}</td>
-                    <td>{journey.createdAt}</td>
-                    <td>{journey.journey}</td>
-                    <td>{journey.costs}</td>
-                    <td>{journey.status}</td>
-                  </tr>
-                ))}
+                {employees.map((emp) => {
+                  return (
+                    <tr>
+                      <td>{employees.indexOf(emp) + 1}</td>
+                      <td>{emp.firstName}</td>
+                      <td>{emp.lastName}</td>
+                      <td>{emp.nic}</td>
+                      <td>{emp.dateOfBirth}</td>
+                      <td>{emp.email}</td>
+                      <td>{emp.telNo}</td>
+                      <td>{emp.address}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </Col>
@@ -113,4 +125,4 @@ function ViewTaxiBookings() {
   );
 }
 
-export default ViewTaxiBookings;
+export default ViewEmployees;

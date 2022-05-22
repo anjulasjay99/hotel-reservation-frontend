@@ -12,8 +12,8 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
-import { useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -27,6 +27,7 @@ import theme from "assets/theme";
 import Presentation from "layouts/pages/presentation";
 
 // Material Kit 2 React routes
+
 import routes from "routes";
 import ReserveRoom from "pages/ReserveRoom";
 import MyReservations from "pages/MyReservations";
@@ -51,6 +52,12 @@ import ViewTaxiBookings from "pages/ViewTaxiBookings";
 
 export default function App() {
   const { pathname } = useLocation();
+  const [rsvInfo, setrsvInfo] = useState({});
+
+  const setRsvInfo = (rsv) => {
+    setrsvInfo(rsv);
+    console.log(rsvInfo);
+  };
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
@@ -77,7 +84,6 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route path="/presentation" element={<Presentation />} />
-        <Route path="*" element={<Navigate to="/presentation" />} />
         <Route path="*" element={<Navigate to="/loginType" />} />
         <Route path="/reserve-room" element={<ReserveRoom />} />
         <Route path="/my-reservations" element={<MyReservations />} />
