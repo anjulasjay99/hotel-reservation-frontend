@@ -13,26 +13,24 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateReservation() {
-
- 
-  const [firstName , setFname] = useState('');
-  const [lastName , setLname] = useState("");
-  const [email , setEmail] = useState("");
-  const [telNo , setTelno] = useState("");
-  const [country , setCountry] = useState("");
-  const [checkInDate , setCheckIn] = useState("");
-  const [checkOutDate , setCheckOut] = useState("");
-  const [room , setRoom] = useState("");
-  const [noOfChildren , setChidren] = useState(0);
-  const [noOfAdults , setAdults] = useState(0);
-  const [totalPayment , setTotalPayment] = useState(0);
-  const [priceA , setPriceA] = useState("");
-  const [priceC , setPriceC] = useState(""); 
+  const [firstName, setFname] = useState("");
+  const [lastName, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [telNo, setTelno] = useState("");
+  const [country, setCountry] = useState("");
+  const [checkInDate, setCheckIn] = useState("");
+  const [checkOutDate, setCheckOut] = useState("");
+  const [room, setRoom] = useState("");
+  const [noOfChildren, setChidren] = useState(0);
+  const [noOfAdults, setAdults] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [priceA, setPriceA] = useState("");
+  const [priceC, setPriceC] = useState("");
 
   const hotel = "Rivers Edge Nature Resorts";
 
-  const [rid , setId] = useState(1);
-  const {id} = useParams();
+  const [rid, setId] = useState(1);
+  const { id } = useParams();
 
   const rooms = [
     {
@@ -67,7 +65,6 @@ function UpdateReservation() {
     },
   ];
 
-
   useEffect(() => {
     axios
       .get(`http://localhost:8070/reservation/get/${id}`)
@@ -90,172 +87,244 @@ function UpdateReservation() {
       });
   }, []);
 
-
-  function CalculatePayment (SelectedRoom){
-
+  function CalculatePayment(SelectedRoom) {
     console.log(SelectedRoom);
-    rooms.forEach((r) =>{
-      if(r.title === SelectedRoom){
+    rooms.forEach((r) => {
+      if (r.title === SelectedRoom) {
         setId(r.id);
       }
       // else{
       //   alert("Room not found!");
       // }
       console.log(rid);
-    })
+    });
     const booking = {
-      roomId : parseInt(rid , 10) ,
+      roomId: parseInt(rid, 10),
       noOfChildren,
       noOfAdults,
-      
-    }
-    axios.post("http://localhost:8070/payments/calculate" , booking ).then((response)=>{
-      console.log("Hi");
+    };
+    axios
+      .post("http://localhost:8070/payments/calculate", booking)
+      .then((response) => {
+        console.log("Hi");
         console.log(response.data);
         setTotalPayment(response.data);
-      }).catch((err)=>{
-          alert(err);
-     });
-
-
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
- function UpdateReservationOnclick(e){
-   e.preventDefault();
-   const newupdatedReservation = {
-    firstName,
-    lastName,
-    email,
-    telNo,
-    country,
-    checkInDate,
-    checkOutDate,
-    noOfChildren,
-    noOfAdults,
-    room,
-    hotel,
-    totalPayment
-   }
-   axios.post(`http://localhost:8070/reservation/update/${id}`,newupdatedReservation).then(()=>{
-    e.target.reset();
-   }).catch((err)=>{
-     console.log(err)
-   })
- }
-
+  function UpdateReservationOnclick(e) {
+    e.preventDefault();
+    const newupdatedReservation = {
+      firstName,
+      lastName,
+      email,
+      telNo,
+      country,
+      checkInDate,
+      checkOutDate,
+      noOfChildren,
+      noOfAdults,
+      room,
+      hotel,
+      totalPayment,
+    };
+    axios
+      .post(`http://localhost:8070/reservation/update/${id}`, newupdatedReservation)
+      .then(() => {
+        e.target.reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   const navigate = useNavigate();
   return (
     <MKBox component="section" py={12}>
-
-    <Container>
-      <Grid container item justifyContent="center" xs={10} lg={7} mx="auto" textAlign="center">
-        <MKTypography variant="h3" mb={1}>
-          Update Reservation
-        </MKTypography>
-      </Grid>
-      <Grid container item xs={12} lg={7} sx={{ mx: "auto" }}>
-        <MKBox width="100%" component="form" method="post" autocomplete="off">
-          <MKBox p={3}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <MKInput variant="standard" name = "Fname" value = {firstName} label="First Name" fullWidth
-                onChange = {(e) =>{
-                  setFname(e.target.value);
-                }} />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MKInput variant="standard" name = "Lname" value = {lastName} label="Last Name" fullWidth 
-                onChange = {(e) =>{
-                  setLname(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12}>
-                <MKInput variant="standard" type="email" name = "email" value = {email} label="Email Address" fullWidth 
-                onChange = {(e) =>{
-                  setEmail(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12}>
-                <MKInput variant="standard" name = "telNo" value = {telNo} label="Telephone Number" fullWidth 
-                onChange = {(e) =>{
-                  setTelno(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12}>
-                <MKInput variant="standard" name = "country" value = {country} label="Country" fullWidth 
-                onChange = {(e) =>{
-                  setCountry(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MKInput type="date" variant="standard" name = "CheckIn" value = {checkInDate} label="Check in Date" fullWidth 
-                onChange = {(e) =>{
-                  setCheckIn(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MKInput type="date" variant="standard" name = "CheckOut" value = {checkOutDate} label="Check out Date" fullWidth 
-                onChange = {(e) =>{
-                  setCheckOut(e.target.value);
-                }}                  />
-              </Grid>
-              <Grid item xs={12}>
-                <MKInput variant="standard" name = "Room" value = {room} label="Room" fullWidth 
-                onChange = {(e) =>{
-                  setRoom(e.target.value);
-                 
-                }}                  />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MKInput variant="standard" name = "ChildrenN" value = {noOfChildren} label="Number of Children" fullWidth 
-                onChange = {(e) =>{
-                  setChidren(e.target.value);
-                 
-                }}                  />
-
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <MKInput variant="standard" name = "AdultsN" value = {noOfAdults} label="Number of Adults" fullWidth 
-                onChange = {(e) =>{
-                  setAdults(e.target.value);
-               
-                }}                  />
+      <Container>
+        <Grid container item justifyContent="center" xs={10} lg={7} mx="auto" textAlign="center">
+          <MKTypography variant="h3" mb={1}>
+            Update Reservation
+          </MKTypography>
+        </Grid>
+        <Grid container item xs={12} lg={7} sx={{ mx: "auto" }}>
+          <MKBox width="100%" component="form" method="post" autocomplete="off">
+            <MKBox p={3}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <MKInput
+                    variant="standard"
+                    name="Fname"
+                    value={firstName}
+                    label="First Name"
+                    fullWidth
+                    onChange={(e) => {
+                      setFname(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MKInput
+                    variant="standard"
+                    name="Lname"
+                    value={lastName}
+                    label="Last Name"
+                    fullWidth
+                    onChange={(e) => {
+                      setLname(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <MKInput
+                    variant="standard"
+                    type="email"
+                    name="email"
+                    value={email}
+                    label="Email Address"
+                    fullWidth
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <MKInput
+                    variant="standard"
+                    name="telNo"
+                    value={telNo}
+                    label="Telephone Number"
+                    fullWidth
+                    onChange={(e) => {
+                      setTelno(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <MKInput
+                    variant="standard"
+                    name="country"
+                    value={country}
+                    label="Country"
+                    fullWidth
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MKInput
+                    type="date"
+                    variant="standard"
+                    name="CheckIn"
+                    value={checkInDate}
+                    label="Check in Date"
+                    fullWidth
+                    onChange={(e) => {
+                      setCheckIn(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MKInput
+                    type="date"
+                    variant="standard"
+                    name="CheckOut"
+                    value={checkOutDate}
+                    label="Check out Date"
+                    fullWidth
+                    onChange={(e) => {
+                      setCheckOut(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <MKInput
+                    variant="standard"
+                    name="Room"
+                    value={room}
+                    label="Room"
+                    fullWidth
+                    onChange={(e) => {
+                      setRoom(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MKInput
+                    variant="standard"
+                    name="ChildrenN"
+                    value={noOfChildren}
+                    label="Number of Children"
+                    fullWidth
+                    onChange={(e) => {
+                      setChidren(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <MKInput
+                    variant="standard"
+                    name="AdultsN"
+                    value={noOfAdults}
+                    label="Number of Adults"
+                    fullWidth
+                    onChange={(e) => {
+                      setAdults(e.target.value);
+                    }}
+                  />
 
                   <Grid item xs={12} md={12}>
-                  <MKButton variant="gradient" color="info" fullWidth onClick = {() =>{
-                    CalculatePayment(room);
-                  }} >Get Payment</MKButton>
+                    <MKButton
+                      variant="gradient"
+                      color="info"
+                      fullWidth
+                      onClick={() => {
+                        CalculatePayment(room);
+                      }}
+                    >
+                      Get Payment
+                    </MKButton>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <MKInput
+                      variant="standard"
+                      name="TotalPayment"
+                      value={totalPayment}
+                      label="Total Payment"
+                      fullWidth
+                      disabled
+                    />
+                  </Grid>
                 </Grid>
-              <Grid item xs={12}>
-                <MKInput variant="standard" name = "TotalPayment" value = {totalPayment} label="Total Payment" fullWidth  disabled          />
-              </Grid>
-
-              </Grid>
-              <Grid container item justifyContent="center" xs={12} my={2}>
+                <Grid container item justifyContent="center" xs={12} my={2}>
+                  <MKButton
+                    type="submit"
+                    variant="gradient"
+                    color="dark"
+                    fullWidth
+                    onClick={(event) => {
+                      UpdateReservationOnclick(event);
+                    }}
+                  >
+                    Edit Reservation
+                  </MKButton>
+                </Grid>
                 <MKButton
                   type="submit"
                   variant="gradient"
                   color="dark"
                   fullWidth
-                  onClick={(event) => {
-                    UpdateReservationOnclick(event);
+                  onClick={() => {
+                    navigate("/view-reservation-hotel");
                   }}
                 >
-                  Edit Reservation
+                  Back
                 </MKButton>
               </Grid>
-              <MKButton
-                type="submit"
-                variant="gradient"
-                color="dark"
-                fullWidth
-                onClick={() => {
-                  navigate("/view-reservation-hotel");
-                }}
-              >
-                Back
-              </MKButton>
             </MKBox>
           </MKBox>
         </Grid>

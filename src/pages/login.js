@@ -55,10 +55,8 @@ function Login() {
         .get(`http://localhost:8280/logins/traveller/checkusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-
             axios.get(`http://localhost:8280/logins/traveller/info/${username}`).then((r) => {
-              if (password !== r.data.Password) {
-
+              if (password !== r.data[0].Password) {
                 alert("Check Password!");
               } else {
                 ReactSession.set("loginData", r.data[0]);
@@ -80,13 +78,11 @@ function Login() {
         .get(`http://localhost:8280/logins/employee/checkusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-
             axios.get(`http://localhost:8280/logins/employee/info/${username}`).then((r) => {
               console.log(r.data.password);
-            
+
               console.log(r.data);
               if (password !== r.data[0].password) {
-
                 alert("Check Password!");
               } else {
                 ReactSession.set("loginData", r.data[0]);
@@ -122,8 +118,6 @@ function Login() {
           console.log(er);
         });
     }
-
-
   }
 
   return (
