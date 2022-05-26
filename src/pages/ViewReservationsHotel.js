@@ -29,7 +29,7 @@ function ViewReservation() {
         alert("Error");
         console.log(err);
       });
-  });
+  },[]);
 
   const getData = () => {
     axios.get(`http://localhost:8280/reservation/viewreservation`).then((res) => {
