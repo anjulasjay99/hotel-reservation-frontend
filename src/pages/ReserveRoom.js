@@ -61,6 +61,18 @@ function ReserveRoom() {
 
   const handleChecked = () => setChecked(!checked);
 
+  const demo = () => {
+    setfname("Anjula");
+    setlname("Jayasinghe");
+    setemail("anjulasjay@gmil.com");
+    setcheckInDate("30/5/2022");
+    setcheckOutDate("3/5/2022");
+    settelNo("0772665133");
+    setnoOfAdults(2);
+    setnoOfChildren(2);
+    setChecked(true);
+  };
+
   const getTotalPayment = async () => {
     await axios
       .post("http://localhost:8280/payments/calculate", {
@@ -218,6 +230,17 @@ function ReserveRoom() {
                 </MKTypography>
               </Grid>
               <Grid container item xs={12} lg={7} sx={{ mx: "auto" }}>
+                <Grid container item justifyContent="center" xs={6} my={2} mx={2}>
+                  <MKButton
+                    type="button"
+                    variant="gradient"
+                    color="secondary"
+                    fullWidth
+                    onClick={demo}
+                  >
+                    Demo
+                  </MKButton>
+                </Grid>
                 <MKBox width="100%" component="form" method="post" autocomplete="off">
                   <MKBox p={3}>
                     <Grid container spacing={3}>
@@ -255,7 +278,7 @@ function ReserveRoom() {
                       <Grid item xs={12} md={6}>
                         <MKInput
                           variant="standard"
-                          type="text"
+                          type="tel"
                           label="Telephone Number"
                           fullWidth
                           value={telNo}

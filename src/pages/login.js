@@ -99,10 +99,10 @@ function Login() {
         });
     } else {
       axios
-        .get(`http://localhost:8280/logins/admins/getusername/${username}`)
+        .get(`http://localhost:8280/logins/admin/getusername/${username}`)
         .then((res) => {
           if (res.data === true) {
-            axios.get(`http://localhost:8280/logins/admins/info`).then((r) => {
+            axios.get(`http://localhost:8280/logins/admin/info`).then((r) => {
               if (password !== r.data.password) {
                 alert("Check Password!");
               } else {
