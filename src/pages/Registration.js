@@ -15,7 +15,7 @@ function Registration() {
   const [telNo, settelNo] = useState("");
   const [country, setcountry] = useState("");
   const [Nic, setNic] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setpassword] = useState("");
   const [Address, setAddress] = useState("");
 
   function Register(e) {
@@ -27,7 +27,7 @@ function Registration() {
       telNo,
       country,
       Nic,
-      Password,
+      password,
       Address,
     };
     axios
@@ -40,7 +40,7 @@ function Registration() {
         settelNo("");
         setcountry("");
         setNic("");
-        setPassword("");
+        setpassword("");
         setAddress("");
       })
       .catch((err) => {
@@ -118,12 +118,12 @@ function Registration() {
           <input
             type="password"
             className="form-control"
-            value={Password}
+            value={password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setpassword(e.target.value);
             }}
             name="password"
-            placeholder="Password"
+            placeholder="password"
             required="required"
           />
         </div>
