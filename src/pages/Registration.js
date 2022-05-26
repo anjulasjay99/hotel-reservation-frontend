@@ -31,7 +31,7 @@ function Registration() {
       Address,
     };
     axios
-      .post("http://localhost:8070/user/save", newUser)
+      .post("http://localhost:8280/travellers/add", newUser)
       .then(() => {
         alert("User Registered");
         setfullName("");
@@ -46,10 +46,9 @@ function Registration() {
       .catch((err) => {
         alert(err);
       });
-      const loginType = 1;
-      ReactSession.set("loginType" , loginType);
-      navigate("/login");
-      
+    const loginType = 1;
+    ReactSession.set("loginType", loginType);
+    navigate("/login");
   }
 
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -9,10 +9,11 @@ import MKBox from "components/MKBox";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
-import axios from 'axios';
-import {useNavigate,useParams} from "react-router-dom"
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateReservation() {
+
  
   const [firstName , setFname] = useState('');
   const [lastName , setLname] = useState("");
@@ -27,67 +28,68 @@ function UpdateReservation() {
   const [totalPayment , setTotalPayment] = useState(0);
   const [priceA , setPriceA] = useState("");
   const [priceC , setPriceC] = useState(""); 
+
   const hotel = "Rivers Edge Nature Resorts";
+
   const [rid , setId] = useState(1);
   const {id} = useParams();
+
   const rooms = [
     {
       id: "1",
       title: "Deluxe King Size",
       priceA: 25000,
-      priceC: 10000
+      priceC: 10000,
     },
     {
       id: "2",
       title: "King Size Sleigh Bed",
       priceA: 35000,
-      priceC: 15000
+      priceC: 15000,
     },
     {
       id: "3",
       title: "Compact Double",
       priceA: 45000,
-      priceC: 20000
+      priceC: 20000,
     },
     {
       id: "4",
       title: "Deluxe Twin/Large Double",
       priceA: 45000,
-      priceC: 20000
+      priceC: 20000,
     },
     {
       id: "5",
       title: "King Size Four Poster",
       priceA: 45000,
-      priceC: 20000
+      priceC: 20000,
     },
   ];
 
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8070/reservation/get/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setFname(res.data.firstName);
+        setLname(res.data.lastName);
+        setEmail(res.data.email);
+        setTelno(res.data.telNo);
+        setCountry(res.data.country);
+        setCheckIn(res.data.checkInDate);
+        setCheckOut(res.data.checkOutDate);
+        setRoom(res.data.room);
+        setChidren(res.data.noOfChildren);
+        setAdults(res.data.noOfAdults);
+        setTotalPayment(res.data.totalPayment);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-
- 
-  useEffect(()=>{
-    
-    axios.get(`http://localhost:8070/reservation/get/${id}`).then((res)=>{
-      
-      console.log(res.data)
-      setFname(res.data.firstName);
-      setLname(res.data.lastName)
-      setEmail(res.data.email)
-      setTelno(res.data.telNo)
-      setCountry(res.data.country)
-      setCheckIn(res.data.checkInDate)
-      setCheckOut(res.data.checkOutDate)
-      setRoom(res.data.room)
-      setChidren(res.data.noOfChildren)
-      setAdults(res.data.noOfAdults)
-      setTotalPayment(res.data.totalPayment)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  
-  },[])
 
   function CalculatePayment (SelectedRoom){
 
@@ -141,9 +143,11 @@ function UpdateReservation() {
    })
  }
 
- const navigate = useNavigate()
+
+  const navigate = useNavigate();
   return (
     <MKBox component="section" py={12}>
+
     <Container>
       <Grid container item justifyContent="center" xs={10} lg={7} mx="auto" textAlign="center">
         <MKTypography variant="h3" mb={1}>
@@ -223,31 +227,41 @@ function UpdateReservation() {
                     CalculatePayment(room);
                   }} >Get Payment</MKButton>
                 </Grid>
- 
-              </Grid>
               <Grid item xs={12}>
                 <MKInput variant="standard" name = "TotalPayment" value = {totalPayment} label="Total Payment" fullWidth  disabled          />
               </Grid>
-            </Grid>
-            <Grid container item justifyContent="center" xs={12} my={2}>
-              <MKButton type="submit" variant="gradient" color="dark" fullWidth onClick = {(event) =>{
-                  UpdateReservationOnclick(event)
-              }}>
-                Edit Reservation
-              </MKButton>
-            </Grid>
-            <MKButton type="submit" variant="gradient" color="dark" fullWidth onClick = {()=>{
-                 navigate("/view-reservation-hotel")
-              }}>
-                Back
-            </MKButton>
 
+              </Grid>
+              <Grid container item justifyContent="center" xs={12} my={2}>
+                <MKButton
+                  type="submit"
+                  variant="gradient"
+                  color="dark"
+                  fullWidth
+                  onClick={(event) => {
+                    UpdateReservationOnclick(event);
+                  }}
+                >
+                  Edit Reservation
+                </MKButton>
+              </Grid>
+              <MKButton
+                type="submit"
+                variant="gradient"
+                color="dark"
+                fullWidth
+                onClick={() => {
+                  navigate("/view-reservation-hotel");
+                }}
+              >
+                Back
+              </MKButton>
+            </MKBox>
           </MKBox>
-        </MKBox>
-      </Grid>
-    </Container>
-  </MKBox>
-  )
+        </Grid>
+      </Container>
+    </MKBox>
+  );
 }
 
-export default UpdateReservation
+export default UpdateReservation;

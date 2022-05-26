@@ -27,12 +27,15 @@ function CancelReservation() {
   const onSubmit = (event) => {
     event.preventDefault();
     if (confirm("Are you sure you want to cancel your reservation?")) {
-      fetch(`http://localhost:8070/reservation/delete/${location.state.reservation._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
+      fetch(
+        `http://localhost:8280/reservation/deletereservation/${location.state.reservation._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           alert("Success!");

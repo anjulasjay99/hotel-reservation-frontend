@@ -41,7 +41,9 @@ function MyReservations() {
   ]);
 
   const getReservations = async () => {
-    await fetch(`http://localhost:8070/reservation/getAll/${sessionStorage.getItem("username")}`)
+    await fetch(
+      `http://localhost:8280/reservation/getreservations/${sessionStorage.getItem("username")}`
+    )
       .then((res) => res.json())
       .then((res) => {
         setreservations(res);

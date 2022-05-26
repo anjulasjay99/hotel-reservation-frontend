@@ -44,7 +44,7 @@ function Payment({ setRsvInfo }) {
     event.preventDefault();
     localStorage.setItem("reservationDetails", JSON.stringify(location.state.reservation));
 
-    fetch("http://localhost:8070/payments", {
+    fetch("http://localhost:8280/payments/create_url", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
