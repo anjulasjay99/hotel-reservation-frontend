@@ -31,7 +31,7 @@ function Registration() {
       Address,
     };
     axios
-      .post("http://localhost:8280/travellers/add", newUser)
+      .post("http://localhost:8280/registrationtravel/register", newUser)
       .then(() => {
         alert("User Registered");
         setfullName("");
@@ -46,8 +46,9 @@ function Registration() {
       .catch((err) => {
         alert(err);
       });
-    const loginType = 1;
-    ReactSession.set("loginType", loginType);
+      alert("User added successfully")
+     const loginType = 1;
+     ReactSession.set("loginType", loginType);
     navigate("/login");
   }
 
@@ -83,6 +84,8 @@ function Registration() {
               setuserName(e.target.value);
             }}
             name="userName"
+            pattern=".{5,}"
+            title="five or more characters"
             placeholder="userName"
             required
           />
@@ -96,6 +99,7 @@ function Registration() {
               setemail(e.target.value);
             }}
             name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
             placeholder="Email"
             required="required"
           />
@@ -108,6 +112,8 @@ function Registration() {
             onChange={(e) => {
               settelNo(e.target.value);
             }}
+            pattern = "[0-9]{10}"
+            title="input 10 digits"
             name="MobileNo"
             placeholder="MobileNo"
             required="required"
@@ -121,6 +127,8 @@ function Registration() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            pattern=".{5,}"
+            title="five or more characters"
             name="password"
             placeholder="Password"
             required="required"
@@ -147,6 +155,8 @@ function Registration() {
             onChange={(e) => {
               setNic(e.target.value);
             }}
+            pattern="[0-9]{9}[V]{1}" 
+            title="please match requested format" 
             name="Nic"
             placeholder="Nic"
             required="required"

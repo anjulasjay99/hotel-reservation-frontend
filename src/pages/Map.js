@@ -7,7 +7,7 @@ export default function Map() {
   
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDE_O1TEfe4MFNmr1gwPNXV5PNlOVqwoh8",
-    });
+  });
 
   if (!isLoaded) return <div>Loading...</div>;
  
@@ -19,17 +19,15 @@ export default function Map() {
 
 const MapWithAMarker = withGoogleMap(props =>
     <div>
-      <GoogleMap
-    defaultZoom={9}
-    defaultCenter={{ lat:6.914133, lng: 79.890303}}
-    >
-    <Marker
-      position={{ lat:6.9141, lng: 79.890303 }}
-    />
-
-  </GoogleMap>
-    </div>
-    
+       <GoogleMap
+        defaultZoom={9}
+        defaultCenter={{ lat:6.914133, lng: 79.890303}}
+        >
+        <Marker
+         position={{ lat:6.9141, lng: 79.890303 }}
+         />
+      </GoogleMap>
+    </div> 
 );
 
 

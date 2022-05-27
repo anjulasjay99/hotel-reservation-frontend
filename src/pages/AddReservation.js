@@ -93,7 +93,7 @@ function AddReservationHotel() {
       noOfChildren: parseInt(noOfChildren, 10),
     };
     axios
-      .post("http://localhost:8280/payments/calculate", booking)
+      .post("http://localhost:8070/payments/calculate", booking)
       .then((response) => {
         console.log("Hi");
         console.log(response.json());

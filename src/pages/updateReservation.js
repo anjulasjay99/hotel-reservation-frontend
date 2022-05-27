@@ -11,6 +11,7 @@ import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { ReactSession } from "react-client-session";
 
 function UpdateReservation() {
   const [firstName, setFname] = useState("");
@@ -24,11 +25,7 @@ function UpdateReservation() {
   const [noOfChildren, setChidren] = useState(0);
   const [noOfAdults, setAdults] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
-  const [priceA, setPriceA] = useState("");
-  const [priceC, setPriceC] = useState("");
-
   const hotel = "Rivers Edge Nature Resorts";
-
   const [rid, setId] = useState(1);
   const { id } = useParams();
 
@@ -65,9 +62,16 @@ function UpdateReservation() {
     },
   ];
 
+  const navigate = useNavigate();
   useEffect(() => {
+
+    ReactSession.setStoreType("memory");
+    const userType = ReactSession.get("loginType");
+    if (userType === null || userType !== 2) {
+      navigate("/loginType");
+    }
     axios
-      .get(`http://localhost:8070/reservation/get/${id}`)
+      .get(`http://localhost:8280/reservation/getreservation/${id}`)
       .then((res) => {
         console.log(res.data);
         setFname(res.data.firstName);
@@ -132,16 +136,17 @@ function UpdateReservation() {
       totalPayment,
     };
     axios
-      .post(`http://localhost:8070/reservation/update/${id}`, newupdatedReservation)
+      .post(`http://localhost:8280/reservation/updatereservation/${id}`, newupdatedReservation)
       .then(() => {
         e.target.reset();
       })
       .catch((err) => {
         console.log(err);
       });
+      alert("Reservation updated successfully")
   }
 
-  const navigate = useNavigate();
+  
   return (
     <MKBox component="section" py={12}>
       <Container>
@@ -183,6 +188,7 @@ function UpdateReservation() {
                     variant="standard"
                     type="email"
                     name="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
                     value={email}
                     label="Email Address"
                     fullWidth
@@ -196,6 +202,8 @@ function UpdateReservation() {
                     variant="standard"
                     name="telNo"
                     value={telNo}
+                    pattern = "[0-9]{10}"
+                    title="input 10 digits"
                     label="Telephone Number"
                     fullWidth
                     onChange={(e) => {
@@ -265,7 +273,7 @@ function UpdateReservation() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={6}>
                   <MKInput
                     variant="standard"
                     name="AdultsN"
@@ -276,7 +284,7 @@ function UpdateReservation() {
                       setAdults(e.target.value);
                     }}
                   />
-
+                  </Grid>
                   <Grid item xs={12} md={12}>
                     <MKButton
                       variant="gradient"
@@ -299,8 +307,8 @@ function UpdateReservation() {
                       disabled
                     />
                   </Grid>
-                </Grid>
-                <Grid container item justifyContent="center" xs={12} my={2}>
+                
+                <Grid container item justifyContent="center" xs={12} >
                   <MKButton
                     type="submit"
                     variant="gradient"
@@ -312,8 +320,10 @@ function UpdateReservation() {
                   >
                     Edit Reservation
                   </MKButton>
+                 
                 </Grid>
-                <MKButton
+                <Grid container item justifyContent="center" xs={12} >
+                <MKButton xs={10}
                   type="submit"
                   variant="gradient"
                   color="dark"
@@ -324,6 +334,7 @@ function UpdateReservation() {
                 >
                   Back
                 </MKButton>
+                </Grid>
               </Grid>
             </MKBox>
           </MKBox>
